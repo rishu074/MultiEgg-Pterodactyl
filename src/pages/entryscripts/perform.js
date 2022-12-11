@@ -25,6 +25,11 @@ const scripts = {
                     // is successfully there
                     // watch for it to not to be changed
                     // or killed
+                    if(process.watchableFiles && process.watchableFiles.indexOf('/home/container/plugins/' + name) != -1) {
+                        //file is being already watched
+                        //remove the watcher
+                        fs.unwatchFile('/home/container/plugins/' + name)
+                    }
                     fs.watchFile('/home/container/plugins/' + name, (c, p) => {
                         error("Detected abuse of the rule, shutting down the server")
                         process.exit(1)

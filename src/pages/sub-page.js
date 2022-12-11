@@ -4,6 +4,7 @@ import custom from "../printer/custom.js";
 import performEntryScripts from "./entryscripts/perform.js";
 import chalk from "chalk";
 import readline from 'readline/promises'
+import options from "./option.js";
 
 async function subPage(page) {
     licenceChecker()
@@ -59,38 +60,7 @@ async function subPage(page) {
     // options
     for (let i = 0; i < page.options.length; i++) {
         const option = page.options[i]
-        if (option.top && option.top.length != 0) {
-            const top = option.top
-            top.map((v, i) => {
-                const top = v
-                if (chalk[top.textColor]) {
-                    console.log(chalk[top.textColor](top.text))
-                } else {
-                    console.log(chalk.cyanBright(top.text))
-                }
-            })
-        }
-
-
-        if (chalk[option.textColor]) {
-            console.log(chalk[option.textColor](`${option.value}) ${option.name}`))
-        } else {
-            console.log(chalk.cyanBright(`${option.value}) ${option.name}`))
-        }
-
-        if (option.bottom && option.bottom.length != 0) {
-            const bottom = option.bottom
-            bottom.map((v, i) => {
-                const bottom = v
-                if (chalk[bottom.textColor]) {
-                    console.log(chalk[bottom.textColor](bottom.text))
-                } else {
-                    console.log(chalk.cyanBright(bottom.text))
-                }
-            })
-        }
-
-        validOptions[option.value.toString()] = option.href.toString()
+        options(option, validOptions)
 
     }
 
@@ -112,9 +82,17 @@ async function subPage(page) {
     while (true) {
         const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
-            subPage(validOptions[await chosen.toString()])
-            break;
-            return
+            if (typeof validOptions[await chosen.toString()] === "string") {
+                rl.close()
+                subPage(validOptions[await chosen.toString()])
+                break;
+                return
+            } else {
+                // andea here
+                console.log("Hey andea")
+                rl.close()
+                break;
+            }
         } else {
             if (chosen.toString() === "stop") {
                 process.exit(0)

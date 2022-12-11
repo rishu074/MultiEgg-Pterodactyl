@@ -1,6 +1,11 @@
 import chalk from "chalk";
+// import performEntryScripts from "./entryscripts/perform.js";
 
 export default function (option, validOptions) {
+    // if (option.scripts && option.scripts.length != 0) {
+    //     performEntryScripts(page.scripts)
+    // }
+
     if (option.top && option.top.length != 0) {
         const top = option.top
         top.map((v, i) => {
@@ -32,5 +37,5 @@ export default function (option, validOptions) {
         })
     }
 
-    validOptions[option.value.toString()] = option.href.toString()
+    validOptions[option.value.toString()] = option.type ? option.type.toString() : option.href.toString()
 }

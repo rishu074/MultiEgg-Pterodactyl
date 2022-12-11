@@ -61,11 +61,7 @@ export default async function () {
     // options
     for (let i = 0; i < page.options.length; i++) {
         const option = page.options[i]
-        if(option.type === "andea") {
-
-        } else {
-            options(option, validOptions)
-        }
+        options(option, validOptions)
     }
 
     /*
@@ -85,12 +81,20 @@ export default async function () {
 
     while (true) {
         const chosen = await rl.question("")
-        if(validOptions[await chosen.toString()]) {
-            subPage(validOptions[await chosen.toString()])
-            break;
-            return
+        if (validOptions[await chosen.toString()]) {
+            if (typeof validOptions[await chosen.toString()] === "string") {
+                rl.close()
+                subPage(validOptions[await chosen.toString()])
+                break;
+                return
+            } else {
+                // andea here
+                console.log("Hey andea")
+                rl.close()
+                break;
+            }
         } else {
-            if(chosen.toString() === "stop") {
+            if (chosen.toString() === "stop") {
                 process.exit(0)
             }
             error("Invalid value entered.")
