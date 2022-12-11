@@ -40,7 +40,8 @@
                 }
             ],
             "scripts": [
-                "clear"
+                "clear",
+                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar"
             ],
             "font": "Efti Font",
             "textColor": "cyan"
