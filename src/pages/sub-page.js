@@ -1,17 +1,15 @@
-import licenceChecker from "../checkers/licence.js";
+import licenceChecker from "../checkers/licence.js"
 import error from "../printer/error.js";
 import custom from "../printer/custom.js";
 import performEntryScripts from "./entryscripts/perform.js";
 import chalk from "chalk";
 import readline from 'readline/promises'
-import subPage from "./sub-page.js";
-import options from "./option.js";
 
-export default async function () {
+async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
-    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].font || !pages[pages.default].textColor || !pages[pages.default].options || pages[pages.default].options.length === 0) {
+    if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -21,9 +19,9 @@ export default async function () {
     })
 
     /*
-        Define the page and the top and bottom texts
-    */
-    const page = pages[pages.default]
+       Define the page and the top and bottom texts
+   */
+    page = pages[page]
 
     /*
         If there is any scripts to run.
@@ -61,11 +59,39 @@ export default async function () {
     // options
     for (let i = 0; i < page.options.length; i++) {
         const option = page.options[i]
-        if(option.type === "andea") {
-
-        } else {
-            options(option, validOptions)
+        if (option.top && option.top.length != 0) {
+            const top = option.top
+            top.map((v, i) => {
+                const top = v
+                if (chalk[top.textColor]) {
+                    console.log(chalk[top.textColor](top.text))
+                } else {
+                    console.log(chalk.cyanBright(top.text))
+                }
+            })
         }
+
+
+        if (chalk[option.textColor]) {
+            console.log(chalk[option.textColor](`${option.value}) ${option.name}`))
+        } else {
+            console.log(chalk.cyanBright(`${option.value}) ${option.name}`))
+        }
+
+        if (option.bottom && option.bottom.length != 0) {
+            const bottom = option.bottom
+            bottom.map((v, i) => {
+                const bottom = v
+                if (chalk[bottom.textColor]) {
+                    console.log(chalk[bottom.textColor](bottom.text))
+                } else {
+                    console.log(chalk.cyanBright(bottom.text))
+                }
+            })
+        }
+
+        validOptions[option.value.toString()] = option.href.toString()
+
     }
 
     /*
@@ -85,15 +111,17 @@ export default async function () {
 
     while (true) {
         const chosen = await rl.question("")
-        if(validOptions[await chosen.toString()]) {
+        if (validOptions[await chosen.toString()]) {
             subPage(validOptions[await chosen.toString()])
             break;
             return
         } else {
-            if(chosen.toString() === "stop") {
+            if (chosen.toString() === "stop") {
                 process.exit(0)
             }
             error("Invalid value entered.")
         }
     }
 }
+
+export default subPage

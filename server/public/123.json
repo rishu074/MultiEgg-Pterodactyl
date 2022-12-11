@@ -40,8 +40,7 @@
                 }
             ],
             "scripts": [
-                "clear",
-                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar"
+                "clear"
             ],
             "font": "Efti Font",
             "textColor": "cyan"
@@ -50,9 +49,65 @@
             "title": "Minecraft Java",
             "options": [
                 {
-                    "name": "Paper"
+                    "name": "Paper",
+                    "value": 0,
+                    "href": "paper",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ]
                 }
-            ]
+            ],
+            "scripts": [
+                "clear",
+                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar"
+            ],
+            "font": "Efti Font",
+            "textColor": "cyan"
+        },
+        "paper": {
+            "title": "Minecraft Paper",
+            "options": [
+                {
+                    "name": "1.8.8",
+                    "value": 0,
+                    "href": "minecraftJava",
+                    "type": "andea",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear"
+                    ],
+                    "startup": "java -jar server.jar",
+                    "stop": "stop"
+                }
+            ],
+            "scripts": [
+                "clear",
+                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar"
+            ],
+            "font": "Efti Font",
+            "textColor": "cyan"
         }
     }
 }
