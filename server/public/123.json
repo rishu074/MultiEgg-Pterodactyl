@@ -147,14 +147,18 @@
                 "clear"
             ],
             "type": "d",
+            "output": true,
             "exec": [
                 {
-                    "message": "Trying to install JVM",
-                    "command": "ls /home"
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.dnxrg"
                 },
                 {
-                    "message": "Trying to install JVM",
-                    "command": "ls /home/container/"
+                    "command": "mkdir /home/container/.dnxrg/java"
+                },
+                {
+                    "message": "Download java",
+                    "command": "cd /home/container/.dnxrg/java && curl -O https://serverfiles.dnxrg.net/java/server-jre-8u333-linux-x64.tar.gz"
                 },
                 {
                     "command": "whoami",

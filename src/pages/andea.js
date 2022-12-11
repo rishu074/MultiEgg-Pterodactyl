@@ -2,7 +2,7 @@ import chalk from "chalk";
 import licenceChecker from "../checkers/licence.js";
 import error from "../printer/error.js";
 import custom from "../printer/custom.js";
-import { spawn, exec } from 'child_process'
+import { spawn, execSync } from 'child_process'
 // import performEntryScripts from "./entryscripts/perform.js";
 
 export default function (andea) {
@@ -39,13 +39,11 @@ export default function (andea) {
                 const v = toExecuteCommands[i];
                 
                 if(v.message) console.log(chalk.greenBright(v.message))
-                const runner = exec(v.command)
+                const runner = execSync(v.command)
 
-                runner.on('close', (code) => {
-                    console.log("Program exited")
-                })
-                runner.stdout.pipe(process.stdout)
-                runner.stderr.pipe(process.stderr)
+                if(andea.output) {
+                    console.log(runner.toString())
+                }
             }
         }
         // const runner = spawn("ls", ['/home'], { detached: true, shell: true })
