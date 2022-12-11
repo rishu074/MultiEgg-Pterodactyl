@@ -69,7 +69,8 @@
             ],
             "scripts": [
                 "clear",
-                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar"
+                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar",
+                "clear"
             ],
             "font": "Efti Font",
             "textColor": "cyan"
@@ -95,13 +96,16 @@
                         }
                     ],
                     "scripts": [
-                        "jar-https://serverfiles.dnxrg.net/paper/1.8.8-server.jar"
+                        "clear",
+                        "jar-https://serverfiles.dnxrg.net/paper/1.8.8-server.jar",
+                        "clear"
                     ]
                 }
             ],
             "scripts": [
                 "clear",
-                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar"
+                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar",
+                "clear"
             ],
             "font": "Efti Font",
             "textColor": "cyan"
@@ -146,7 +150,15 @@
             "exec": [
                 {
                     "message": "Trying to install JVM",
-                    "command": ""
+                    "command": "ls /home"
+                },
+                {
+                    "message": "Trying to install JVM",
+                    "command": "ls /home/container/"
+                },
+                {
+                    "command": "whoami",
+                    "message": "downloading java"
                 }
             ]
         }

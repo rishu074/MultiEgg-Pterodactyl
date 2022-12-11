@@ -29,7 +29,7 @@ async function subPage(page) {
         If there is any scripts to run.
     */
     if (page.scripts && page.scripts.length != 0) {
-        await performEntryScripts(page.scripts)
+        let r = await performEntryScripts(page.scripts)
     }
 
     /*

@@ -2,7 +2,7 @@ import chalk from "chalk";
 import licenceChecker from "../checkers/licence.js";
 import error from "../printer/error.js";
 import custom from "../printer/custom.js";
-import { spawn } from 'child_process'
+import { spawn, exec } from 'child_process'
 // import performEntryScripts from "./entryscripts/perform.js";
 
 export default function (andea) {
@@ -33,32 +33,47 @@ export default function (andea) {
     if (andea.title && andea.font && andea.textColor) custom(andea.title, andea.font, andea.textColor)
 
     try {
-        const runner = spawn("ls", ['/home'], { detached: true, shell: true })
-        console.log(chalk.greenBright(andea.exec[0].message))
-        console.log(andea)
-        // runner.stdin.setDefaultEncoding('utf-8')
+        if (andea.type === "d") {
+            const toExecuteCommands = andea.exec
+            for (let i = 0; i < toExecuteCommands.length; i++) {
+                const v = toExecuteCommands[i];
+                
+                if(v.message) console.log(chalk.greenBright(v.message))
+                const runner = exec(v.command)
+
+                runner.on('close', (code) => {
+                    console.log("Program exited")
+                })
+                runner.stdout.pipe(process.stdout)
+                runner.stderr.pipe(process.stderr)
+            }
+        }
+        // const runner = spawn("ls", ['/home'], { detached: true, shell: true })
+        // console.log(chalk.greenBright(andea.exec[0].message))
+        // console.log(andea)
+        // // runner.stdin.setDefaultEncoding('utf-8')
 
         // if (andea.type === "a") {
         //     runner.stdout.pipe(process.stdout)
         //     runner.stderr.pipe(process.stdout)
         // }
 
-        runner.on('error', (err) => {
-            error("There was an error while executing the andeas")
-            console.log(err)
-            process.exit(1)
-        })
+        // runner.on('error', (err) => {
+        //     error("There was an error while executing the andeas")
+        //     console.log(err)
+        //     process.exit(1)
+        // })
 
-        // runner.stdin.cork()
-        // runner.stdin.write("ls /home/container")
-        // process.nextTick(() => runner.stdin.uncork())
+        // // runner.stdin.cork()
+        // // runner.stdin.write("ls /home/container")
+        // // process.nextTick(() => runner.stdin.uncork())
 
 
-        const restParameters = andea.exec.slice(1)
+        // const restParameters = andea.exec.slice(1)
 
-        restParameters.map((v, i) => {
-            console.log(chalk.greenBright(v.message))
-        })
+        // restParameters.map((v, i) => {
+        //     console.log(chalk.greenBright(v.message))
+        // })
     } catch (err) {
         error("There was an error while executing the andeas")
         error(err.message)
