@@ -1,0 +1,16 @@
+{
+  "name": "egg3.0-server",
+  "version": "1.0.0",
+  "description": "Just a server for the egg",
+  "main": "server.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
