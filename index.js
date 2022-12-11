@@ -27,6 +27,14 @@ SOFTWARE.
 */
 import print from "./src/printer/big.js"
 import small from "./src/printer/small.js"
+import initLicence from "./src/licence/init.js"
 
-print("Hello world!")
-small("DNxRG")
+(
+    async () => {
+        process.stdout.clearScreenDown()
+        await initLicence()
+        print("Hello world!")
+        small("DNxRG")
+    }
+)()
+
