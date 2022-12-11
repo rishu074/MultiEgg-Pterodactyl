@@ -33,26 +33,31 @@ export default function (andea) {
     if (andea.title && andea.font && andea.textColor) custom(andea.title, andea.font, andea.textColor)
 
     try {
-        const runner = spawn(andea.exec[0].command)
+        const runner = spawn("ls", ['/home'], { detached: true, shell: true })
         console.log(chalk.greenBright(andea.exec[0].message))
-        console.log(andea.exec[0].command.split(" ")[0], andea.exec[0].command.split(" ").slice(1))
-        console.log(chalk.greenBright(andea.exec[0].message))
-        if (andea.type === "a") {
-            runner.stdout.pipe(process.stdout)
-            runner.stderr.pipe(process.stdout)
-        }
+        console.log(andea)
+        // runner.stdin.setDefaultEncoding('utf-8')
+
+        // if (andea.type === "a") {
+        //     runner.stdout.pipe(process.stdout)
+        //     runner.stderr.pipe(process.stdout)
+        // }
 
         runner.on('error', (err) => {
             error("There was an error while executing the andeas")
-            error(err.message)
+            console.log(err)
             process.exit(1)
         })
+
+        // runner.stdin.cork()
+        // runner.stdin.write("ls /home/container")
+        // process.nextTick(() => runner.stdin.uncork())
+
 
         const restParameters = andea.exec.slice(1)
 
         restParameters.map((v, i) => {
             console.log(chalk.greenBright(v.message))
-            runner.stdin.write(v.command)
         })
     } catch (err) {
         error("There was an error while executing the andeas")
