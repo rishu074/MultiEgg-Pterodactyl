@@ -40,7 +40,7 @@ WORKDIR /
 RUN mkdir /egg
 
 COPY ./index.js /egg/egg.js
-COPY ./timer.js /egg/timer.js
+COPY ./src /egg/src
 COPY ./package.json /egg/package.json
 
 WORKDIR /egg
