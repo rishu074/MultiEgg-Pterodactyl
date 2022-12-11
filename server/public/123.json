@@ -2,5 +2,44 @@
     "name": "The first ever testing application for egg.",
     "motd": {
         "name": "VexCloud"
+    },
+    "pages": {
+        "default": "main",
+        "main": {
+            "title": "Choose your games",
+            "top": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "textColor": "cyan"
+                }
+            ],
+            "bottom": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "textColor": "cyan"
+                }
+            ],
+            "options": [
+                {
+                    "name": "Minecraft Java",
+                    "value": 0,
+                    "href": "minecraftJava",
+                    "textColor": "yellow"
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "Efti Font",
+            "textColor": "cyan"
+        },
+        "minecraftJava": {
+            "title": "Minecraft Java",
+            "options": [
+                {
+                    "name": "Paper"
+                }
+            ]
+        }
     }
 }
