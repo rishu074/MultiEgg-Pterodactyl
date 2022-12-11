@@ -28,13 +28,13 @@ SOFTWARE.
 import print from "./src/printer/big.js"
 import small from "./src/printer/small.js"
 import initLicence from "./src/licence/init.js"
+import brand from "./src/startup/brand.js"
 
 (
     async () => {
         process.stdout.clearScreenDown()
         await initLicence()
-        print("Hello world!")
-        small("DNxRG")
+        brand()
     }
 )()
 

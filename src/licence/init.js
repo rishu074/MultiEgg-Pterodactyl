@@ -12,10 +12,16 @@ export default async function initLicence() {
     let licenceResponse
     try {
         licenceResponse = await axios.get(licenceURL)
-        console.log(await licenceResponse.data)
-    } catch (error) {
+    } catch (err) {
         error("An error occurred while fetching the licence")
-        console.log(error.message)
+        error(err.message)
         process.exit(1)
     }
+
+    if(await licenceResponse.status != 200) {
+        error("An error occurred while fetching the licence")
+        process.exit(1)
+    }
+
+    process.licence = await licenceResponse.data
 }
