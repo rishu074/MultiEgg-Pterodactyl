@@ -90,6 +90,8 @@ export default async function () {
             })
         }
 
+        validOptions[option.value.toString()] = option.href.toString()
+
     }
 
     /*
@@ -108,6 +110,5 @@ export default async function () {
     }
 
     const chosen = await rl.question("")
-    console.log(await chosen)
-
+    console.log(validOptions)
 }
