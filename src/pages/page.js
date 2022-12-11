@@ -6,6 +6,7 @@ import chalk from "chalk";
 import readline from 'readline/promises'
 import subPage from "./sub-page.js";
 import options from "./option.js";
+import andea from "./andea.js";
 
 export default async function () {
     licenceChecker()
@@ -95,7 +96,7 @@ export default async function () {
                 return
             } else {
                 // andea here
-                console.log("Hey andea")
+                andea(theSelectedOption.href)
                 rl.close()
                 break;
             }

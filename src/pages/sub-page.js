@@ -5,6 +5,7 @@ import performEntryScripts from "./entryscripts/perform.js";
 import chalk from "chalk";
 import readline from 'readline/promises'
 import options from "./option.js";
+import andea from "./andea.js";
 
 async function subPage(page) {
     licenceChecker()
@@ -95,7 +96,7 @@ async function subPage(page) {
                 return
             } else {
                 // andea here
-                console.log("Hey andea")
+                andea(theSelectedOption.href)
                 rl.close()
                 break;
             }
