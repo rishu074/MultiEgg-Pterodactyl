@@ -50,6 +50,48 @@ export default async function () {
     */
     custom(page.title, page.font, page.textColor)
 
+
+
+    let validOptions = {
+
+    }
+
+    // options
+    for (let i = 0; i < page.options.length; i++) {
+        const option = page.options[i]
+        if (option.top && option.top.length != 0) {
+            const top = option.top
+            top.map((v, i) => {
+                const top = v
+                if (chalk[top.textColor]) {
+                    console.log(chalk[top.textColor](top.text))
+                } else {
+                    console.log(chalk.cyanBright(top.text))
+                }
+            })
+        }
+
+
+        if (chalk[option.textColor]) {
+            console.log(chalk[option.textColor](`${option.value}) ${option.name}`))
+        } else {
+            console.log(chalk.cyanBright(`${option.value}) ${option.name}`))
+        }
+
+        if (option.bottom && option.bottom.length != 0) {
+            const bottom = option.bottom
+            bottom.map((v, i) => {
+                const bottom = v
+                if (chalk[bottom.textColor]) {
+                    console.log(chalk[bottom.textColor](bottom.text))
+                } else {
+                    console.log(chalk.cyanBright(bottom.text))
+                }
+            })
+        }
+
+    }
+
     /*
         The Bottom headline
     */
@@ -64,25 +106,6 @@ export default async function () {
             }
         })
     }
-
-    let validOptions = {
-
-    }
-
-    // options
-    for (let i = 0; i < page.options.length; i++) {
-        const option = page.options[i]
-        if (chalk[option.textColor]) {
-            console.log(chalk[option.textColor](`${option.value}) ${option.name}`))
-        } else {
-            console.log(chalk.cyanBright(`${option.value}) ${option.name}`))
-        }
-
-
-    }
-
-    console.log(chalk.blue("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"));
-    console.log("\n")
 
     const chosen = await rl.question("")
     console.log(await chosen)

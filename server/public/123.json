@@ -9,7 +9,7 @@
             "title": "Choose your games",
             "top": [
                 {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
                     "textColor": "cyan"
                 }
             ],
@@ -24,7 +24,19 @@
                     "name": "Minecraft Java",
                     "value": 0,
                     "href": "minecraftJava",
-                    "textColor": "yellow"
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ]
                 }
             ],
             "scripts": [
