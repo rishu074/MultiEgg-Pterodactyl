@@ -37,5 +37,5 @@ export default function (option, validOptions) {
         })
     }
 
-    validOptions[option.value.toString()] = option.type === "andea" ? option : option.href.toString()
+    validOptions[option.value.toString()] = option
 }

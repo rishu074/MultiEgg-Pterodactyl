@@ -80,8 +80,7 @@
                 {
                     "name": "1.8.8",
                     "value": 0,
-                    "href": "minecraftJava",
-                    "type": "andea",
+                    "href": "chooseJava",
                     "textColor": "yellow",
                     "top": [
                         {
@@ -96,10 +95,8 @@
                         }
                     ],
                     "scripts": [
-                        "clear"
-                    ],
-                    "startup": "java -jar server.jar",
-                    "stop": "stop"
+                        "jar-https://serverfiles.dnxrg.net/paper/1.8.8-server.jar"
+                    ]
                 }
             ],
             "scripts": [
@@ -108,6 +105,50 @@
             ],
             "font": "Efti Font",
             "textColor": "cyan"
+        },
+        "chooseJava": {
+            "title": "Choose java version",
+            "options": [
+                {
+                    "name": "java8",
+                    "value": 0,
+                    "type": "andea",
+                    "href": "JavaExec",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "Cricket",
+            "textColor": "red"
+        }
+    },
+    "andeas": {
+        "JavaExec": {
+            "title": "Installing Java",
+            "scripts": [
+                "clear"
+            ],
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Trying to install JVM",
+                    "command": ""
+                }
+            ]
         }
     }
 }

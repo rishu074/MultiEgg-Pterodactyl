@@ -28,7 +28,7 @@ async function subPage(page) {
         If there is any scripts to run.
     */
     if (page.scripts && page.scripts.length != 0) {
-        performEntryScripts(page.scripts)
+        await performEntryScripts(page.scripts)
     }
 
     /*
@@ -82,9 +82,15 @@ async function subPage(page) {
     while (true) {
         const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
-            if (typeof validOptions[await chosen.toString()] === "string") {
+            const theSelectedOption = validOptions[await chosen.toString()]
+            if (theSelectedOption.type != "andea") {
                 rl.close()
-                subPage(validOptions[await chosen.toString()])
+
+                // check if there are scripts to run onclick
+                if (theSelectedOption.scripts && theSelectedOption.scripts.length!= 0) {
+                    await performEntryScripts(theSelectedOption.scripts)
+                }
+                subPage(theSelectedOption.href.toString())
                 break;
                 return
             } else {
