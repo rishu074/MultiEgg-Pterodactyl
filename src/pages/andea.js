@@ -4,12 +4,13 @@ import error from "../printer/error.js";
 import custom from "../printer/custom.js";
 import { spawn, execSync, spawnSync } from 'child_process'
 import performEntryScripts from "./entryscripts/perform.js";
+import subPage from "./sub-page.js";
 
-export default async function (andea) {
+export default async function andeaFuc(andea) {
     licenceChecker()
     const { andeas } = process.licence
 
-    if (!andeas[andea] || !andeas[andea].type || !andeas[andea].exec || !andeas[andea].href) {
+    if (!andeas[andea] || !andeas[andea].type || !andeas[andea].exec || !andeas[andea].href && andeas[andea].type != "a") {
         error("No andea found the this name or it is incorrectly configured.")
         process.exit(1)
     }
@@ -67,10 +68,79 @@ export default async function (andea) {
                     }
                 }
             }
+        } else {
+            // type a andea
+
+            var toExecuteCommands = andea.exec.command
+            // console.log(process.env)
+
+            // parse startup commands
+            // like parse java -jar server.jar -Xmx {SERVER_MEMORY}M to java -jar server.jar -Xmx 12M
+            Object.keys(process.env).map((key, i) => {
+                const value = process.env[key]
+
+                if(toExecuteCommands.toString().includes("${" + key + "}")) {
+                    toExecuteCommands = toExecuteCommands.replace("${" + key + "}", value)
+                }
+            })
+            
+            const runner = spawn(toExecuteCommands.split(" ")[0], [...toExecuteCommands.split(" ").slice(1)], {
+                shell: true,
+                detached: true,
+                cwd: "/home/container"
+            })
+
+            runner.stdout.on("data", (data) => {
+                console.log(data.toString())
+            })
+            runner.stderr.on("data", (data) => {
+                console.log(data.toString())
+            })
+
+            runner.on('error', (err) => {
+                error(`There was an error while executing this command \`${toExecuteCommands}\``)
+                error(err)
+                process.exit(1)
+            })
+
+            runner.on('close', (code) => {
+                process.exit(code)
+            })
         }
     } catch (err) {
         error("There was an error while executing the andeas")
         error(err.message)
         process.exit(1)
+    }
+
+    /*
+        The Bottom headline
+    */
+    if (andea.bottom && andea.bottom.length != 0) {
+        const bottom = andea.bottom
+        bottom.map((v, i) => {
+            const bottom = v
+            if (chalk[bottom.textColor]) {
+                console.log(chalk[bottom.textColor](bottom.text))
+            } else {
+                console.log(chalk.cyanBright(bottom.text))
+            }
+        })
+    }
+
+    // till here the thing is completely done. imean if the type="d" then the thing is done
+    if(andea.type === "d") {
+        if(!andea.hrefType) {
+            error("The `hrefType` was Not Specified.")
+            process.exit(1)
+        }
+
+        if(andea.hrefType != "andea") {
+            return subPage(andea.href)
+        } else {
+            return andeaFuc(andea.href)
+        }
+    } else {
+        console.log("Type a andea")
     }
 }

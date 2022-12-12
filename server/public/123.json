@@ -97,7 +97,7 @@
                     ],
                     "scripts": [
                         "clear",
-                        "jar-https://serverfiles.dnxrg.net/paper/1.8.8-server.jar",
+                        "jar-https://serverfiles.dnxrg.net/paper/1.8.8-app.jar",
                         "clear"
                     ]
                 }
@@ -148,23 +148,52 @@
             "scripts": [
                 "clear"
             ],
+            "href": "startServer",
+            "hrefType": "andea",
             "type": "d",
             "exec": [
                 {
                     "message": "Creating directory for Java",
-                    "command": "mkdir /home/container/.dnxrg"
+                    "command": "mkdir /home/container/.dnxrg",
+                    "textColor": "green"
                 },
                 {
                     "command": "mkdir /home/container/.dnxrg/java"
                 },
                 {
-                    "message": "Download java",
-                    "command": "cd /home/container/.dnxrg/java && curl -O https://serverfiles.dnxrg.net/java/server-jre-8u333-linux-x64.tar.gz",
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.dnxrg/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/server-jre-8u333-linux-x64.tar.gz\"",
                     "textColor": "cyan",
                     "output": true,
                     "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.dnxrg/java && tar -xzf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "export JAVA_HOME=/home/container/.dnxrg/java/jdk1.8.0_333"
+                },
+                {
+                    "command": "export PATH=$JAVA_HOME/bin:$PATH"
                 }
             ]
+        },
+        "startServer": {
+            "title": "Starting the server",
+            "font": "Cricket",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "type": "a",
+            "stop": "stop",
+            "exec": {
+                "command": "cd /home/container/ && ./.dnxrg/java/jdk1.8.0_333/bin/java -Xms128M -Xmx${SERVER_MEMORY}M -Dterminal.jline=false -Dterminal.ansi=true -jar app.jar nogui"
+            }
         }
     }
 }

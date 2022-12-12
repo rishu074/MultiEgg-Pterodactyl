@@ -11,7 +11,7 @@ async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
-    if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0 || !page[page].href) {
+    if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -84,6 +84,10 @@ async function subPage(page) {
         const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
             const theSelectedOption = validOptions[await chosen.toString()]
+            if(!theSelectedOption.href) {
+                error("The was no `href` key configured on this option")
+                process.exit(1)
+            }
             if (theSelectedOption.type != "andea") {
                 rl.close()
 
