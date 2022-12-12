@@ -37,6 +37,24 @@
                             "textColor": "red"
                         }
                     ]
+                },
+                {
+                    "name": "Minecraft Piroxy",
+                    "value": 1,
+                    "href": "minecraftProxy",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ]
                 }
             ],
             "scripts": [
@@ -64,6 +82,71 @@
                             "text": "---------",
                             "textColor": "red"
                         }
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear",
+                "plugin-https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar-hibernate.jar",
+                "clear"
+            ],
+            "font": "Efti Font",
+            "textColor": "cyan"
+        },
+        "minecraftProxy": {
+            "title": "Minecraft Proxy",
+            "options": [
+                {
+                    "name": "Waterfall MC",
+                    "value": 0,
+                    "href": "waterfall",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "Efti Font",
+            "textColor": "cyan"
+        },
+        "waterfall": {
+            "title": "Minecraft Waterfall",
+            "options": [
+                {
+                    "name": "latest",
+                    "value": 0,
+                    "href": "chooseJava",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar-https://serverfiles.dnxrg.net/waterfall/1.19-app.jar",
+                        "wait-1000",
+                        "create-/home/container/config.yml-listeners:\n",
+                        "clear"
                     ]
                 }
             ],
@@ -132,6 +215,25 @@
                             "textColor": "red"
                         }
                     ]
+                },
+                {
+                    "name": "java17",
+                    "value": 1,
+                    "type": "andea",
+                    "href": "JavaExec17",
+                    "textColor": "yellow",
+                    "top": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "---------",
+                            "textColor": "red"
+                        }
+                    ]
                 }
             ],
             "scripts": [
@@ -182,6 +284,68 @@
                     "command": "export PATH=$JAVA_HOME/bin:$PATH"
                 }
             ]
+        },
+        "JavaExec17": {
+            "title": "Installing Java",
+            "font": "Cricket",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "startServerBungee",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.dnxrg",
+                    "textColor": "green"
+                },
+                {
+                    "command": "mkdir /home/container/.dnxrg/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.dnxrg/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-17.0.3.1_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.dnxrg/java && tar -xzf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "export JAVA_HOME=/home/container/.dnxrg/java/jdk-17.0.3.1"
+                },
+                {
+                    "command": "export PATH=$JAVA_HOME/bin:$PATH"
+                }
+            ]
+        },
+        "startServerBungee": {
+            "title": "Starting the server",
+            "font": "Cricket",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "type": "a",
+            "stop": "end",
+            "exec": {
+                "command": "cd /home/container/ && ./.dnxrg/java/jdk-17.0.3.1/bin/java -Xms128M -Xmx${SERVER_MEMORY}M -Dterminal.jline=false -Dterminal.ansi=true -jar app.jar nogui"
+            },
+            "blockedInputs": [
+                "$equals(reload)"
+            ],
+            "blockedOutputs": [
+                "$contains(Hibernate)"
+            ],
+            "consoleColor": "cyan",
+            "consoleErrorColor": "red"
         },
         "startServer": {
             "title": "Starting the server",

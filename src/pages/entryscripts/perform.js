@@ -18,12 +18,12 @@ async function downloadAndSave(plugin, name, dir) {
         error(err.message)
         process.exit(1)
     }
-    
+
     if (await response.status === 200) {
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir)
         }
-        
+
         try {
             // console.log(plugin)
             // console.log(Buffer.from(response.data).length)
@@ -69,6 +69,19 @@ const scripts = {
         return new Promise((resolve) => {
             setTimeout(resolve, parseInt(ms));
         });
+    },
+    "replace": async (file, find, replace) => {
+        if (!fs.existsSync(file)) {
+            error(`The file ${file} does not exists`)
+            process.exit(1)
+        }
+
+        let file = fs.readFileSync(file, "utf-8")
+        file = file.replace(find, replace)
+        fs.writeFileSync(file, file, { encoding: "utf-8" })
+    },
+    "create": async (file, data) => {
+        fs.writeFileSync(file, data, { encoding: "utf-8" })
     }
 }
 
