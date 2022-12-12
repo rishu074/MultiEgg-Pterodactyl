@@ -6,6 +6,7 @@ import { spawn, execSync, spawnSync } from 'child_process'
 import performEntryScripts from "./entryscripts/perform.js";
 import subPage from "./sub-page.js";
 import parse_blocked from '../functions/inAndOutFunc.js'
+import readline from "readline";
 
 export default async function andeaFuc(andea) {
     licenceChecker()
@@ -85,11 +86,14 @@ export default async function andeaFuc(andea) {
                 }
             })
 
+            process.stdin.resume()
+            // console.log(process.stdin.isPaused())
             const runner = spawn(toExecuteCommands.split(" ")[0], [...toExecuteCommands.split(" ").slice(1)], {
                 shell: true,
                 detached: true,
                 cwd: "/home/container"
             })
+            
 
             runner.stdout.on("data", (data) => {
                 // parse the banned or blocked outputs
@@ -103,13 +107,9 @@ export default async function andeaFuc(andea) {
                     }
                 }
 
-                console.log(andea.consoleColor && chalk[andea.consoleColor] ? chalk[andea.consoleColor](data.toString()) : data.toString())
+                console.log(andea.consoleColor && chalk[andea.consoleColor] ? chalk[andea.consoleColor](data.toString().trim()) : data.toString().trim())
             })
             runner.stderr.on("data", (data) => {
-                console.log(andea.consoleErrorColor && chalk[andea.consoleErrorColor] ? chalk[andea.consoleErrorColor](data.toString()) : data.toString())
-            })
-
-            runner.on('error', (err) => {
                 // parse the banned or blocked outputs
                 if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
                     let blockedOutputs = andea.blockedOutputs
@@ -120,6 +120,12 @@ export default async function andeaFuc(andea) {
                         if(results) return
                     }
                 }
+
+                console.log(andea.consoleErrorColor && chalk[andea.consoleErrorColor] ? chalk[andea.consoleErrorColor](data.toString().trim()) : data.toString().trim())
+            })
+
+            runner.on('error', (err) => {
+                
 
                 error(`There was an error while executing this command \`${toExecuteCommands}\``)
                 error(err)
@@ -133,8 +139,9 @@ export default async function andeaFuc(andea) {
             process.stdin.on('data', (data) => {
                 // user input
                 // parse if the command is for stop
+                // console.log(data.toString())
                 if (data.toString().trim() === "stop") {
-                    return runner.stdin.write(andea.stop ? andea.stop : "stop")
+                    return runner.stdin.write(andea.stop ? andea.stop+"\n" : "stop\n")
                 }
 
                 // parse the banned or blocked inputs
@@ -148,7 +155,7 @@ export default async function andeaFuc(andea) {
                     }
                 }
 
-                runner.stdin.write(data)
+                runner.stdin.write(data.toString().trim() + "\n")
             })
         }
     } catch (err) {
@@ -185,6 +192,6 @@ export default async function andeaFuc(andea) {
             return andeaFuc(andea.href)
         }
     } else {
-        console.log("Type a andea")
+        // eat 5-star, do nothing
     }
 }
