@@ -2,10 +2,10 @@ import chalk from "chalk";
 import licenceChecker from "../checkers/licence.js";
 import error from "../printer/error.js";
 import custom from "../printer/custom.js";
-import { spawn, execSync } from 'child_process'
-// import performEntryScripts from "./entryscripts/perform.js";
+import { spawn, execSync, spawnSync } from 'child_process'
+import performEntryScripts from "./entryscripts/perform.js";
 
-export default function (andea) {
+export default async function (andea) {
     licenceChecker()
     const { andeas } = process.licence
 
@@ -30,48 +30,44 @@ export default function (andea) {
             }
         })
     }
+
+    /*
+        If there is any scripts to run.
+    */
+    if (andea.scripts && andea.scripts.length != 0) {
+        await performEntryScripts(andea.scripts)
+    }
+
+
     if (andea.title && andea.font && andea.textColor) custom(andea.title, andea.font, andea.textColor)
+    console.log("\n\n")
 
     try {
+        //execute the minimal type means execute in Synchronus Way
+        // it is great for executing small commands like `cd or mkdir or curl`
         if (andea.type === "d") {
             const toExecuteCommands = andea.exec
             for (let i = 0; i < toExecuteCommands.length; i++) {
                 const v = toExecuteCommands[i];
-                
-                if(v.message) console.log(chalk.greenBright(v.message))
-                const runner = execSync(v.command)
 
-                if(andea.output) {
-                    console.log(runner.toString())
+                if (v.message) console.log(v.textColor && chalk[v.textColor] ? chalk[v.textColor](v.message) : chalk.cyanBright(v.message))
+
+                try {
+                    const runner = spawnSync(v.command.split(" ")[0], [...v.command.split(" ").slice(1)], {
+                        shell: true
+                    })
+                    // console.log(runner)
+                    if (v.output) {
+                        console.log(v.outputColor && chalk[v.outputColor] ? chalk[v.outputColor](runner.stdout.toString(), "\n", runner.stderr.toString()) : chalk.redBright(runner.stdout.toString(), "\n", runner.stderr.toString()))
+                    }
+
+                } catch (err) {
+                    if (v.output) {
+                        error(`There was an error while executing this command \`${v.command}\` ==> '${err}'`)
+                    }
                 }
             }
         }
-        // const runner = spawn("ls", ['/home'], { detached: true, shell: true })
-        // console.log(chalk.greenBright(andea.exec[0].message))
-        // console.log(andea)
-        // // runner.stdin.setDefaultEncoding('utf-8')
-
-        // if (andea.type === "a") {
-        //     runner.stdout.pipe(process.stdout)
-        //     runner.stderr.pipe(process.stdout)
-        // }
-
-        // runner.on('error', (err) => {
-        //     error("There was an error while executing the andeas")
-        //     console.log(err)
-        //     process.exit(1)
-        // })
-
-        // // runner.stdin.cork()
-        // // runner.stdin.write("ls /home/container")
-        // // process.nextTick(() => runner.stdin.uncork())
-
-
-        // const restParameters = andea.exec.slice(1)
-
-        // restParameters.map((v, i) => {
-        //     console.log(chalk.greenBright(v.message))
-        // })
     } catch (err) {
         error("There was an error while executing the andeas")
         error(err.message)
