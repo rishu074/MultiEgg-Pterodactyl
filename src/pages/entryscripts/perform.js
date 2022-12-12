@@ -2,6 +2,7 @@ import axios from 'axios'
 import error from '../../printer/error.js'
 import fs from 'fs'
 import chalk from 'chalk'
+import humanFileSize from '../../functions/readable.js'
 
 async function downloadAndSave(plugin, name, dir) {
     if (!plugin || !name) {
@@ -11,7 +12,7 @@ async function downloadAndSave(plugin, name, dir) {
 
     let response
     try {
-        response = await axios.get(plugin, { responseType: 'blob', onDownloadProgress: (ev) => console.log(chalk.greenBright(`Downloading ${name}, Downloaded: ${Math.round(ev.bytes / 1e+6)}MB`)) })
+        response = await axios.get(plugin, { responseType: 'blob', onDownloadProgress: (ev) => console.log(chalk.greenBright(`Downloading ${name}, Downloaded: ${humanFileSize(ev.loaded)}`)) })
     } catch (err) {
         error("There was an error occurred while downloading the file")
         error(err.message)

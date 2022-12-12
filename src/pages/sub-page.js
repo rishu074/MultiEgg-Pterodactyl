@@ -11,7 +11,7 @@ async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
-    if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0) {
+    if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0 || !page[page].href) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }

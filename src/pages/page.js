@@ -12,7 +12,7 @@ export default async function () {
     licenceChecker()
 
     const { pages } = process.licence
-    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].font || !pages[pages.default].textColor || !pages[pages.default].options || pages[pages.default].options.length === 0) {
+    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].font || !pages[pages.default].textColor || !pages[pages.default].options || pages[pages.default].options.length === 0 || !page[pages.default].href) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }

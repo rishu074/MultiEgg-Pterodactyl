@@ -9,8 +9,8 @@ export default async function (andea) {
     licenceChecker()
     const { andeas } = process.licence
 
-    if (!andeas[andea] || !andeas[andea].type || !andeas[andea].exec) {
-        error("No andea found the this name.")
+    if (!andeas[andea] || !andeas[andea].type || !andeas[andea].exec || !andeas[andea].href) {
+        error("No andea found the this name or it is incorrectly configured.")
         process.exit(1)
     }
 
