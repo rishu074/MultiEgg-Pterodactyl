@@ -94,7 +94,7 @@ export default async function andeaFuc(andea) {
             runner.stdout.on("data", (data) => {
                 // parse the banned or blocked outputs
                 if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
-                    blockedOutputs = andea.blockedOutputs
+                    let blockedOutputs = andea.blockedOutputs
 
                     for (let i = 0; i < blockedOutputs.length; i++) {
                         const bo = blockedOutputs[i];
@@ -112,7 +112,7 @@ export default async function andeaFuc(andea) {
             runner.on('error', (err) => {
                 // parse the banned or blocked outputs
                 if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
-                    blockedOutputs = andea.blockedOutputs
+                    let blockedOutputs = andea.blockedOutputs
 
                     for (let i = 0; i < blockedOutputs.length; i++) {
                         const bo = blockedOutputs[i];
@@ -133,13 +133,13 @@ export default async function andeaFuc(andea) {
             process.stdin.on('data', (data) => {
                 // user input
                 // parse if the command is for stop
-                if (data.toString() === "stop\n") {
+                if (data.toString().trim() === "stop") {
                     return runner.stdin.write(andea.stop ? andea.stop : "stop")
                 }
 
                 // parse the banned or blocked inputs
                 if(andea.blockedInputs && andea.blockedInputs.length != 0) {
-                    blockedOutputs = andea.blockedInputs
+                    let blockedOutputs = andea.blockedInputs
 
                     for (let i = 0; i < blockedOutputs.length; i++) {
                         const bo = blockedOutputs[i];
