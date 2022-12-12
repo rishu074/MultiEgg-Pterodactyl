@@ -97,7 +97,8 @@
                     ],
                     "scripts": [
                         "clear",
-                        "jar-https://serverfiles.dnxrg.net/paper/1.8.8-app.jar",
+                        "jar-https://serverjars.com/api/fetchJar/servers/paper/1.8.8-app.jar",
+                        "wait-1000",
                         "clear"
                     ]
                 }
@@ -193,7 +194,15 @@
             "stop": "stop",
             "exec": {
                 "command": "cd /home/container/ && ./.dnxrg/java/jdk1.8.0_333/bin/java -Xms128M -Xmx${SERVER_MEMORY}M -Dterminal.jline=false -Dterminal.ansi=true -jar app.jar nogui"
-            }
+            },
+            "blockedInputs": [
+                "$equals(reload)"
+            ],
+            "blockedOutputs": [
+                "$contains(Hibernate)"
+            ],
+            "consoleColor": "green",
+            "consoleErrorColor": "red"
         }
     }
 }

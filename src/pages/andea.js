@@ -5,6 +5,7 @@ import custom from "../printer/custom.js";
 import { spawn, execSync, spawnSync } from 'child_process'
 import performEntryScripts from "./entryscripts/perform.js";
 import subPage from "./sub-page.js";
+import parse_blocked from '../functions/inAndOutFunc.js'
 
 export default async function andeaFuc(andea) {
     licenceChecker()
@@ -79,11 +80,11 @@ export default async function andeaFuc(andea) {
             Object.keys(process.env).map((key, i) => {
                 const value = process.env[key]
 
-                if(toExecuteCommands.toString().includes("${" + key + "}")) {
+                if (toExecuteCommands.toString().includes("${" + key + "}")) {
                     toExecuteCommands = toExecuteCommands.replace("${" + key + "}", value)
                 }
             })
-            
+
             const runner = spawn(toExecuteCommands.split(" ")[0], [...toExecuteCommands.split(" ").slice(1)], {
                 shell: true,
                 detached: true,
@@ -91,13 +92,35 @@ export default async function andeaFuc(andea) {
             })
 
             runner.stdout.on("data", (data) => {
-                console.log(data.toString())
+                // parse the banned or blocked outputs
+                if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
+                    blockedOutputs = andea.blockedOutputs
+
+                    for (let i = 0; i < blockedOutputs.length; i++) {
+                        const bo = blockedOutputs[i];
+                        let results = parse_blocked(bo, data.toString().trim())
+                        if(results) return
+                    }
+                }
+
+                console.log(andea.consoleColor && chalk[andea.consoleColor] ? chalk[andea.consoleColor](data.toString()) : data.toString())
             })
             runner.stderr.on("data", (data) => {
-                console.log(data.toString())
+                console.log(andea.consoleErrorColor && chalk[andea.consoleErrorColor] ? chalk[andea.consoleErrorColor](data.toString()) : data.toString())
             })
 
             runner.on('error', (err) => {
+                // parse the banned or blocked outputs
+                if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
+                    blockedOutputs = andea.blockedOutputs
+
+                    for (let i = 0; i < blockedOutputs.length; i++) {
+                        const bo = blockedOutputs[i];
+                        let results = parse_blocked(bo, data.toString().trim())
+                        if(results) return
+                    }
+                }
+
                 error(`There was an error while executing this command \`${toExecuteCommands}\``)
                 error(err)
                 process.exit(1)
@@ -105,6 +128,27 @@ export default async function andeaFuc(andea) {
 
             runner.on('close', (code) => {
                 process.exit(code)
+            })
+
+            process.stdin.on('data', (data) => {
+                // user input
+                // parse if the command is for stop
+                if (data.toString() === "stop\n") {
+                    return runner.stdin.write(andea.stop ? andea.stop : "stop")
+                }
+
+                // parse the banned or blocked inputs
+                if(andea.blockedInputs && andea.blockedInputs.length != 0) {
+                    blockedOutputs = andea.blockedInputs
+
+                    for (let i = 0; i < blockedOutputs.length; i++) {
+                        const bo = blockedOutputs[i];
+                        let results = parse_blocked(bo, data.toString().trim())
+                        if(results) return
+                    }
+                }
+
+                runner.stdin.write(data)
             })
         }
     } catch (err) {
@@ -129,13 +173,13 @@ export default async function andeaFuc(andea) {
     }
 
     // till here the thing is completely done. imean if the type="d" then the thing is done
-    if(andea.type === "d") {
-        if(!andea.hrefType) {
+    if (andea.type === "d") {
+        if (!andea.hrefType) {
             error("The `hrefType` was Not Specified.")
             process.exit(1)
         }
 
-        if(andea.hrefType != "andea") {
+        if (andea.hrefType != "andea") {
             return subPage(andea.href)
         } else {
             return andeaFuc(andea.href)

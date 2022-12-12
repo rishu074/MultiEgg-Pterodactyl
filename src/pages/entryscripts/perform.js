@@ -12,20 +12,22 @@ async function downloadAndSave(plugin, name, dir) {
 
     let response
     try {
-        response = await axios.get(plugin, { responseType: 'blob', onDownloadProgress: (ev) => console.log(chalk.greenBright(`Downloading ${name}, Downloaded: ${humanFileSize(ev.loaded)}`)) })
+        response = await axios.get(plugin, { responseType: 'arraybuffer', onDownloadProgress: (ev) => console.log(chalk.greenBright(`Downloading ${name}, Downloaded: ${humanFileSize(ev.loaded)}`)) })
     } catch (err) {
         error("There was an error occurred while downloading the file")
         error(err.message)
         process.exit(1)
     }
-
+    
     if (await response.status === 200) {
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir)
         }
-
+        
         try {
-            fs.writeFileSync(dir + '/' + name, response.data)
+            // console.log(plugin)
+            // console.log(Buffer.from(response.data).length)
+            fs.writeFileSync(dir + '/' + name, Buffer.from(response.data))
 
             // if the file
             // is successfully there
@@ -44,7 +46,7 @@ async function downloadAndSave(plugin, name, dir) {
             if (!process.watchableFiles) process.watchableFiles = []
             process.watchableFiles.push(dir + '/' + name)
         } catch (err) {
-            error("There was an error occurred while downloading the plguin")
+            error("There was an error occurred while downloading the file " + name)
             error(err.message)
             process.exit(1)
         }
@@ -62,6 +64,11 @@ const scripts = {
     "jar": async (link, name) => {
         let a = await downloadAndSave(link, name, "/home/container")
         return await a
+    },
+    "wait": async (ms) => {
+        return new Promise((resolve) => {
+            setTimeout(resolve, parseInt(ms));
+        });
     }
 }
 
