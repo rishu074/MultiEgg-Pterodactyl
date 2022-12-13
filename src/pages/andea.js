@@ -7,6 +7,7 @@ import performEntryScripts from "./entryscripts/perform.js";
 import subPage from "./sub-page.js";
 import parse_blocked from '../functions/inAndOutFunc.js'
 import readline from "readline";
+import fs from 'fs'
 
 export default async function andeaFuc(andea) {
     licenceChecker()
@@ -75,6 +76,17 @@ export default async function andeaFuc(andea) {
 
             var toExecuteCommands = andea.exec.command
             // console.log(process.env)
+
+            // remove all the file listeners
+            if(process.watchableFiles && process.watchableFiles.length != 0) {
+                let watchingFIles = process.watchableFiles
+                
+                for (let i = 0; i < watchingFIles.length; i++) {
+                    const element = watchingFIles[i];
+                    
+                    fs.unwatchFile(element)
+                }
+            }
 
             // parse startup commands
             // like parse java -jar server.jar -Xmx {SERVER_MEMORY}M to java -jar server.jar -Xmx 12M

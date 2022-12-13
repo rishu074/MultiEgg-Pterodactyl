@@ -5,8 +5,8 @@ import chalk from 'chalk'
 import humanFileSize from '../../functions/readable.js'
 
 async function downloadAndSave(plugin, name, dir) {
-    if (!plugin || !name) {
-        error("Plugin and name are required")
+    if (!plugin || !name || !dir) {
+        error("Parameters not given to download.")
         process.exit(1)
     }
 
@@ -76,12 +76,40 @@ const scripts = {
             process.exit(1)
         }
 
-        let file = fs.readFileSync(file, "utf-8")
-        file = file.replace(find, replace)
-        fs.writeFileSync(file, file, { encoding: "utf-8" })
+        try {
+            let fileF = fs.readFileSync(file, "utf-8")
+
+            //parse the string for variables
+            let toReplace = replace
+            Object.keys(process.env).map((key, i) => {
+                const value = process.env[key]
+
+                if (toReplace.toString().includes("${" + key + "}")) {
+                    toReplace = toReplace.replace("${" + key + "}", value)
+                }
+            })
+
+            fileF = fileF.replace(find, toReplace)
+            fs.writeFileSync(file, fileF, { encoding: "utf-8" })
+        } catch (err) {
+            error(`There was an error in replace function with file '${file}', toFindText: '${find}', toReplace: ${replace}`)
+            console.log(err)
+            process.exit(1)
+        }
+
     },
     "create": async (file, data) => {
-        fs.writeFileSync(file, data, { encoding: "utf-8" })
+        try {
+            fs.writeFileSync(file, data, { encoding: "utf-8" })
+        } catch (err) {
+            error(`There was an error in while writing the file: '${file}', dataL '${data}'`)
+            console.log(err)
+            process.exit(1)
+        }
+    },
+    "download": async (file, name, dir) => {
+        let a = await downloadAndSave(file, name, dir)
+        return await a
     }
 }
 

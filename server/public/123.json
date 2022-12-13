@@ -145,7 +145,10 @@
                         "clear",
                         "jar-https://serverfiles.dnxrg.net/waterfall/1.19-app.jar",
                         "wait-1000",
-                        "create-/home/container/config.yml-listeners:\n",
+                        "download-https://cdn.dnxrg.net/uploads/N4Pl8inj9gOEXVVrsIDh.yml-config.yml-/home/container",
+                        "replace-/home/container/config.yml-query_port: 25577-query_port: ${SERVER_PORT}",
+                        "replace-/home/container/config.yml-motd: '&1Another Bungee server'-motd: '&1DNxRG Minecraft Server'",
+                        "replace-/home/container/config.yml-host: 0.0.0.0:25577-host: 0.0.0.0:${SERVER_PORT}",
                         "clear"
                     ]
                 }
