@@ -11,6 +11,7 @@ async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
+    const ConfigInstance = process.ConfigInstance
     if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
@@ -81,10 +82,17 @@ async function subPage(page) {
     }
 
     while (true) {
-        const chosen = await rl.question("")
+        let chosen
+        if (page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
+            chosen = ConfigInstance.getValue(page.config_variable)
+        } else {
+            chosen = await rl.question("")
+            page.config_variable && ConfigInstance.configEnabled ? ConfigInstance.setValue(page.config_variable, await chosen) : ""
+        }
+        // const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
             const theSelectedOption = validOptions[await chosen.toString()]
-            if(!theSelectedOption.href) {
+            if (!theSelectedOption.href) {
                 error("The was no `href` key configured on this option")
                 process.exit(1)
             }
@@ -92,7 +100,7 @@ async function subPage(page) {
                 rl.close()
 
                 // check if there are scripts to run onclick
-                if (theSelectedOption.scripts && theSelectedOption.scripts.length!= 0) {
+                if (theSelectedOption.scripts && theSelectedOption.scripts.length != 0) {
                     await performEntryScripts(theSelectedOption.scripts)
                 }
                 subPage(theSelectedOption.href.toString())

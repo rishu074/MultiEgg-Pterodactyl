@@ -81,7 +81,14 @@ export default async function () {
     }
 
     while (true) {
-        const chosen = await rl.question("")
+        let chosen
+        if(page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
+            chosen = ConfigInstance.getValue(page.config_variable)
+        } else {
+            chosen = await rl.question("")
+            page.config_variable && ConfigInstance.configEnabled ? ConfigInstance.setValue(page.config_variable, await chosen) : ""
+        }
+        // const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
             const theSelectedOption = validOptions[await chosen.toString()]
             if(!theSelectedOption.href) {

@@ -37,9 +37,13 @@ export default class Config extends events {
             this.config = { "uuid": process.env.P_SERVER_UUID }
         } else {
             this.fileExists = true
-            this.config = JSON.parse(fs.readFileSync(config.path + "/" + config))
+            this.config = JSON.parse(fs.readFileSync(config.path + "/" + config.file))
         }
         this.emit("load", this.config)
+        this.configEnabled = true
+
+        // set the value of uuid
+        this.setValue("uuid", process.env.P_SERVER_UUID)
         return true
     }
 
