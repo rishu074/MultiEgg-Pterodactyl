@@ -78,12 +78,12 @@ export default async function andeaFuc(andea) {
             // console.log(process.env)
 
             // remove all the file listeners
-            if(process.watchableFiles && process.watchableFiles.length != 0) {
+            if (process.watchableFiles && process.watchableFiles.length != 0) {
                 let watchingFIles = process.watchableFiles
-                
+
                 for (let i = 0; i < watchingFIles.length; i++) {
                     const element = watchingFIles[i];
-                    
+
                     fs.unwatchFile(element)
                 }
             }
@@ -103,19 +103,20 @@ export default async function andeaFuc(andea) {
             const runner = spawn(toExecuteCommands.split(" ")[0], [...toExecuteCommands.split(" ").slice(1)], {
                 shell: true,
                 detached: true,
-                cwd: "/home/container"
+                cwd: "/home/container",
+                env: andea.env && Object.keys(andea.env).length != 0 ? {...process.env, ...andea.env} : {...process.env}
             })
-            
+
 
             runner.stdout.on("data", (data) => {
                 // parse the banned or blocked outputs
-                if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
+                if (andea.blockedOutputs && andea.blockedOutputs.length != 0) {
                     let blockedOutputs = andea.blockedOutputs
 
                     for (let i = 0; i < blockedOutputs.length; i++) {
                         const bo = blockedOutputs[i];
                         let results = parse_blocked(bo, data.toString().trim())
-                        if(results) return
+                        if (results) return
                     }
                 }
 
@@ -123,13 +124,13 @@ export default async function andeaFuc(andea) {
             })
             runner.stderr.on("data", (data) => {
                 // parse the banned or blocked outputs
-                if(andea.blockedOutputs && andea.blockedOutputs.length != 0) {
+                if (andea.blockedOutputs && andea.blockedOutputs.length != 0) {
                     let blockedOutputs = andea.blockedOutputs
 
                     for (let i = 0; i < blockedOutputs.length; i++) {
                         const bo = blockedOutputs[i];
                         let results = parse_blocked(bo, data.toString().trim())
-                        if(results) return
+                        if (results) return
                     }
                 }
 
@@ -137,7 +138,7 @@ export default async function andeaFuc(andea) {
             })
 
             runner.on('error', (err) => {
-                
+
 
                 error(`There was an error while executing this command \`${toExecuteCommands}\``)
                 error(err)
@@ -153,17 +154,21 @@ export default async function andeaFuc(andea) {
                 // parse if the command is for stop
                 // console.log(data.toString())
                 if (data.toString().trim() === "stop") {
-                    return runner.stdin.write(andea.stop ? andea.stop+"\n" : "stop\n")
+                    return runner.stdin.write(andea.stop ? andea.stop + "\n" : "stop\n")
                 }
 
                 // parse the banned or blocked inputs
-                if(andea.blockedInputs && andea.blockedInputs.length != 0) {
+                if (andea.blockedInputs && andea.blockedInputs.length != 0) {
                     let blockedOutputs = andea.blockedInputs
 
                     for (let i = 0; i < blockedOutputs.length; i++) {
                         const bo = blockedOutputs[i];
                         let results = parse_blocked(bo, data.toString().trim())
-                        if(results) return
+                        if (results) {
+                            // console.log(results)
+                            // console.log(data.toString())
+                            return
+                        }
                     }
                 }
 

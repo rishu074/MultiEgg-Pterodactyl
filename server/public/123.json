@@ -102,7 +102,8 @@
                 "clear"
             ],
             "font": "Efti Font",
-            "textColor": "cyan"
+            "textColor": "cyan",
+            "config_variable": "main_java"
         },
         "minecraftProxy": {
             "title": "Minecraft Proxy",
@@ -130,7 +131,8 @@
                 "clear"
             ],
             "font": "Efti Font",
-            "textColor": "cyan"
+            "textColor": "cyan",
+            "config_variable": "main_proxy"
         },
         "waterfall": {
             "title": "Minecraft Waterfall",
@@ -170,7 +172,8 @@
                 "clear"
             ],
             "font": "Efti Font",
-            "textColor": "cyan"
+            "textColor": "cyan",
+            "config_variable": "waterfall_version"
         },
         "paper": {
             "title": "Minecraft Paper",
@@ -206,7 +209,8 @@
                 "clear"
             ],
             "font": "Efti Font",
-            "textColor": "cyan"
+            "textColor": "cyan",
+            "config_variable": "paper_version"
         },
         "chooseJava": {
             "title": "Choose java version",
@@ -254,7 +258,8 @@
                 "clear"
             ],
             "font": "Cricket",
-            "textColor": "red"
+            "textColor": "red",
+            "config_variable": "java"
         }
     },
     "andeas": {
