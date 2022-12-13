@@ -10,11 +10,20 @@ import small from "./src/printer/small.js"
 import initLicence from "./src/licence/init.js"
 import brand from "./src/startup/brand.js"
 import page from "./src/pages/page.js"
+import Config from "./src/config/config.js"
 
 (
     async () => {
         await initLicence()
         await brand()
+
+        /*
+            The config part
+        */
+        const ConfigInstance = new Config()
+        ConfigInstance.loadConfig()
+        process.ConfigInstance = ConfigInstance
+
         page()
     }
 )();

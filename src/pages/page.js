@@ -12,6 +12,7 @@ export default async function () {
     licenceChecker()
 
     const { pages } = process.licence
+    const ConfigInstance = process.ConfigInstance
     if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].font || !pages[pages.default].textColor || !pages[pages.default].options || pages[pages.default].options.length === 0) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
@@ -52,7 +53,6 @@ export default async function () {
         The main Title
     */
     custom(page.title, page.font, page.textColor)
-
 
 
     let validOptions = {

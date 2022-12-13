@@ -1,5 +1,10 @@
 {
     "name": "The first ever testing application for egg.",
+    "config": {
+        "enabled": true,
+        "path": "/home/container",
+        "file": "egg_config.json"
+    },
     "motd": {
         "name": "VexCloud",
         "scripts": [
@@ -66,7 +71,8 @@
                 "clear"
             ],
             "font": "Efti Font",
-            "textColor": "cyan"
+            "textColor": "cyan",
+            "config_variable": "main_page_selected"
         },
         "minecraftJava": {
             "title": "Minecraft Java",
