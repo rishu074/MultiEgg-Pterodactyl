@@ -14,7 +14,7 @@ import page from "./src/pages/page.js"
 (
     async () => {
         await initLicence()
-        brand()
+        await brand()
         page()
     }
 )();

@@ -1,15 +1,20 @@
 import big from "../printer/big.js";
 import licenceChecker from "../checkers/licence.js";
 import chalk from "chalk";
+import performEntryScripts from "../pages/entryscripts/perform.js";
+import custom from "../printer/custom.js";
 
-export default function () {
+export default async function () {
     licenceChecker()
     const jsonData = process.licence
+    let page = jsonData.motd
+
+
     console.clear()
     console.log(chalk.blue("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"));
     console.log("\n")
     console.log("")
-    big(jsonData.motd.name)
+    custom(page.name, page.font, page.textColor)
     console.log("\n")
     console.log(chalk.blue("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"));
     console.log(chalk.cyan("[PROJECT] This project is purchased and permitted to be used at " + jsonData.motd.name + "."));
@@ -20,4 +25,11 @@ export default function () {
     console.log("\n")
     console.log("\n")
     console.log("\n")
+
+    /*
+        If there is any scripts to run.
+    */
+    if (page.scripts && page.scripts.length != 0) {
+        await performEntryScripts(page.scripts)
+    }
 }

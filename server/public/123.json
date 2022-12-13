@@ -1,7 +1,12 @@
 {
     "name": "The first ever testing application for egg.",
     "motd": {
-        "name": "VexCloud"
+        "name": "VexCloud",
+        "scripts": [
+            "wait-5000"
+        ],
+        "textColor": "cyan",
+        "font": "ANSI Shadow"
     },
     "pages": {
         "default": "main",
@@ -347,7 +352,7 @@
             "blockedOutputs": [
                 "$contains(Hibernate)"
             ],
-            "consoleColor": "cyan",
+            "consoleColor": "reset",
             "consoleErrorColor": "red"
         },
         "startServer": {

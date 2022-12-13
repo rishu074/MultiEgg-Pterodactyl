@@ -93,7 +93,7 @@ const scripts = {
             fs.writeFileSync(file, fileF, { encoding: "utf-8" })
         } catch (err) {
             error(`There was an error in replace function with file '${file}', toFindText: '${find}', toReplace: ${replace}`)
-            console.log(err)
+            error(err.message)
             process.exit(1)
         }
 
@@ -103,13 +103,30 @@ const scripts = {
             fs.writeFileSync(file, data, { encoding: "utf-8" })
         } catch (err) {
             error(`There was an error in while writing the file: '${file}', dataL '${data}'`)
-            console.log(err)
+            error(err.message)
             process.exit(1)
         }
     },
     "download": async (file, name, dir) => {
         let a = await downloadAndSave(file, name, dir)
         return await a
+    },
+    "delete": async (file, recursive) => {
+        if(!recursive) {
+            recursive = false
+        } else {
+            recursive = recursive === "true"
+        }
+
+        if(recursive && !fs.existsSync(file)) return
+
+        try {
+            fs.unlinkSync(file)
+        } catch (err) {
+            error("An error occurred while deleting the file, you should pass recursive=true to avoid this.")
+            error(err.message)
+            process.exit(1)
+        }
     }
 }
 
