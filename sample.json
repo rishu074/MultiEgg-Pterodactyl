@@ -1,0 +1,1030 @@
+{
+    "name": "The multi-egg for dustin",
+    "config": {
+        "enabled": true,
+        "path": "/home/container",
+        "file": "CozeCloud_egg_config.json"
+    },
+    "motd": {
+        "name": "CozeCloud",
+        "scripts": [
+            "wait(&?&)5000"
+        ],
+        "textColor": "cyan",
+        "font": "ANSI Shadow"
+    },
+    "pages": {
+        "default": "main",
+        "main": {
+            "title": "Choose your Game",
+            "top": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+                    "textColor": "cyan"
+                }
+            ],
+            "bottom": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "textColor": "gold"
+                }
+            ],
+            "options": [
+                {
+                    "name": "Minecraft Java",
+                    "value": 1,
+                    "href": "minecraftJavaScreen",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ]
+                },
+                {
+                    "name": "Minecraft Bedrock",
+                    "value": 2,
+                    "href": "minecraftBedrockScreen",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "",
+                            "textColor": "red"
+                        }
+                    ]
+                },
+                {
+                    "name": "Minecraft Proxy",
+                    "value": 3,
+                    "href": "minecraftProxyScreen",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "",
+                            "textColor": "red"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\n Choose From 1 to 4",
+                            "textColor": "green"
+                        }
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "main_page_selected"
+        },
+        "minecraftJavaScreen": {
+            "title": "Minecraft Java",
+            "top": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+                    "textColor": "cyan"
+                }
+            ],
+            "bottom": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "textColor": "gold"
+                }
+            ],
+            "options": [
+                {
+                    "name": "Paper",
+                    "value": 1,
+                    "href": "minecraftJavaScreenPaper",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "purper",
+                    "value": 2,
+                    "href": "minecraftJavaScreenPurper",
+                    "textColor": "whiteBright"
+                }
+            ],
+            "scripts": [
+                "clear",
+                "plugin(&?&)https://drive.royadmadev.xyz/file/7cae5ae0-8ed5-4ed4-b911-cf33185ea3bc.jar/shared/Kcfh3O0isciGP1Gk(&?&)clearlag.jar",
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "main_java"
+        },
+        "minecraftProxyScreen": {
+            "title": "Minecraft Proxy",
+            "top": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+                    "textColor": "cyan"
+                }
+            ],
+            "bottom": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "textColor": "gold"
+                }
+            ],
+            "options": [
+                {
+                    "name": "Waterfall",
+                    "value": 1,
+                    "href": "minecraftProxyScreenWaterfall",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "Bungee",
+                    "value": 2,
+                    "href": "minecraftProxyScreenBungee",
+                    "textColor": "whiteBright"
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "main_proxy"
+        },
+        "minecraftBedrockScreen": {
+            "title": "Minecraft Bedrock",
+            "top": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+                    "textColor": "cyan"
+                }
+            ],
+            "bottom": [
+                {
+                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    "textColor": "gold"
+                }
+            ],
+            "options": [
+                {
+                    "name": "Vanilla Bedrock",
+                    "value": 1,
+                    "href": "minecraftBedrockScreenVanilla",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "PocketMine",
+                    "value": 2,
+                    "href": "minecraftBedrockScreenPocket",
+                    "textColor": "whiteBright"
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "main_proxy"
+        },
+        "minecraftProxyScreenWaterfall": {
+            "title": "WaterfallMC",
+            "options": [
+                {
+                    "name": "1.19",
+                    "value": 1,
+                    "href": "minecraftJavaChooseJavaProxy",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/waterfall/1.19(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "waterfall_version"
+        },
+        "minecraftBedrockScreenPocket": {
+            "title": "PocketMine MP",
+            "options": [
+                {
+                    "name": "latest",
+                    "value": 1,
+                    "href": "minecraftBedrockPocketExecutor",
+                    "type": "andea",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/pmmp/start.sh(&?&)start.sh",
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/pmmp/PocketMine-MP.phar(&?&)PocketMine-MP.phar",
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/pmmp/PHP-8.0-Linux-x86_64.tar.gz(&?&)PHP-8.0-Linux-x86_64.tar.gz",
+                        "clear"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "bungee_version"
+        },
+        "minecraftBedrockScreenVanilla": {
+            "title": "Vanilla Bedrock",
+            "options": [
+                {
+                    "name": "latest",
+                    "value": 1,
+                    "href": "minecraftBedrockVanillaSelector",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "bungee_version"
+        },
+        "minecraftBedrockVanillaSelector": {
+            "title": "Type Selector",
+            "options": [
+                {
+                    "name": "Download All files (Might resets your world because it downloads everything eg. world etc)",
+                    "value": 1,
+                    "href": "minecraftBedrockVanillaStart",
+                    "type": "andea",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/bedrockall/server.tar.gz(&?&)bedrock.tar.gz",
+                        "wait(&?&)1000"
+                    ]
+                },
+                {
+                    "name": "Downloads only the startable files (Does not resets worlds.)",
+                    "value": 2,
+                    "href": "minecraftBedrockVanillaStart",
+                    "type": "andea",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/bedrockstarter/simple.tar.gz(&?&)bedrock.tar.gz",
+                        "wait(&?&)1000"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan"
+        },
+        "minecraftProxyScreenBungee": {
+            "title": "Bungee",
+            "options": [
+                {
+                    "name": "1.19",
+                    "value": 1,
+                    "href": "minecraftJavaChooseJavaProxy",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/bungee/1.19(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "bungee_version"
+        },
+        "minecraftJavaScreenPaper": {
+            "title": "Minecraft Paper",
+            "options": [
+                {
+                    "name": "1.19.2",
+                    "value": 1,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19.2(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                },
+                {
+                    "name": "1.19",
+                    "value": 2,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                },
+                {
+                    "name": "1.16.5",
+                    "value": 3,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.16.5(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                },
+                {
+                    "name": "1.12.2",
+                    "value": 4,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.12.2(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                },
+                {
+                    "name": "1.8.8",
+                    "value": 5,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.8.8(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear",
+                "plugin(&?&)https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar(&?&)hibernate.jar",
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "paper_version"
+        },
+        "minecraftJavaScreenPurper": {
+            "title": "Minecraft Purper",
+            "options": [
+                {
+                    "name": "1.19.2",
+                    "value": 1,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ],
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/purper/1.19.2(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                },
+                {
+                    "name": "1.19",
+                    "value": 2,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/purper/1.19(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                },
+                {
+                    "name": "1.16.5",
+                    "value": 3,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/purper/1.16.5(&?&)server.jar",
+                        "wait(&?&)1000",
+                        "clear"
+                    ]
+                }
+            ],
+            "scripts": [
+                "clear",
+                "plugin(&?&)https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar(&?&)hibernate.jar",
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "paper_version"
+        },
+        "minecraftJavaChooseJavaProxy": {
+            "title": "Choose java version",
+            "options": [
+                {
+                    "name": "java8",
+                    "value": 1,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava8Proxy",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ]
+                },
+                {
+                    "name": "java11",
+                    "value": 2,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava11Proxy",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "java16",
+                    "value": 3,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava16Proxy",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "java17",
+                    "value": 4,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava17Proxy",
+                    "textColor": "whiteBright"
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "java"
+        },
+        "minecraftJavaChooseJava": {
+            "title": "Choose java version",
+            "options": [
+                {
+                    "name": "java8",
+                    "value": 1,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava8",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\n",
+                            "textColor": "red"
+                        }
+                    ]
+                },
+                {
+                    "name": "java11",
+                    "value": 2,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava11",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "java16",
+                    "value": 3,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava16",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "java17",
+                    "value": 4,
+                    "type": "andea",
+                    "href": "minecraftJavaChooseJava17",
+                    "textColor": "whiteBright"
+                }
+            ],
+            "scripts": [
+                "clear"
+            ],
+            "font": "ANSI Shadow",
+            "textColor": "cyan",
+            "config_variable": "java"
+        }
+    },
+    "andeas": {
+        "minecraftJavaChooseJava8": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftJavaStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/server-jre-8u333-linux-x64.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk1.8.0_333/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava11": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftJavaStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-11.0.15.1_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk-11.0.15.1/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava16": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftJavaStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-16.0.2_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk-16.0.2/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava17": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftJavaStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-17.0.3.1_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk-17.0.3.1/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava8Proxy": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftProxyStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/server-jre-8u333-linux-x64.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk1.8.0_333/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava11Proxy": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftProxyStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-11.0.15.1_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk-11.0.15.1/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava16Proxy": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftProxyStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-16.0.2_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk-16.0.2/* ./"
+                }
+            ]
+        },
+        "minecraftJavaChooseJava17Proxy": {
+            "title": "Installing Java",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftProxyStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Creating directory for Java",
+                    "command": "mkdir /home/container/.startup",
+                    "textColor": "green"
+                },
+                {
+                    "command": "rm -rf /home/container/.startup/java"
+                },
+                {
+                    "command": "mkdir /home/container/.startup/java"
+                },
+                {
+                    "message": "Downloading java",
+                    "command": "cd /home/container/.startup/java && wget -q -O java.tar.gz \"https://serverfiles.dnxrg.net/java/jdk-17.0.3.1_linux-x64_bin.tar.gz\"",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "yellow"
+                },
+                {
+                    "message": "Extracting jvm",
+                    "command": "cd /home/container/.startup/java && tar -xzvf java.tar.gz && rm java.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "red"
+                },
+                {
+                    "command": "cd /home/container/.startup/java && mv ./jdk-17.0.3.1/* ./"
+                }
+            ]
+        },
+        "minecraftJavaStartServer": {
+            "title": "Starting",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "type": "a",
+            "stop": "stop",
+            "exec": {
+                "command": "cd /home/container/ && ./.startup/java/bin/java -Xms128M -Xmx${SERVER_MEMORY}M -Dterminal.jline=false -Dterminal.ansi=true -jar server.jar nogui"
+            },
+            "blockedInputs": [
+                "$equals(reload)"
+            ],
+            "blockedOutputs": [
+                "$contains(Hibernate)",
+                "$contains(Can't keep up!)"
+            ],
+            "consoleColor": "whiteBright",
+            "consoleErrorColor": "red"
+        },
+        "minecraftProxyStartServer": {
+            "title": "Starting",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "type": "a",
+            "stop": "end",
+            "exec": {
+                "command": "cd /home/container/ && ./.startup/java/bin/java -Xms128M -Xmx${SERVER_MEMORY}M -Dterminal.jline=false -Dterminal.ansi=true -jar server.jar nogui"
+            },
+            "blockedInputs": [
+                "$equals(reload)"
+            ],
+            "blockedOutputs": [
+                "$contains(Hibernate)",
+                "$contains(Can’t Keep Up!)"
+            ],
+            "consoleColor": "whiteBright",
+            "consoleErrorColor": "red"
+        },
+        "minecraftBedrockPocketExecutor": {
+            "title": "Install Pocket-Mine server",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftBedrockPocketStart",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Extracting and Installing Pocketmine Server",
+                    "command": "cd /home/container/ && tar -xvf PHP-8.0-Linux-x86_64.tar.gz && rm PHP-8.0-Linux-x86_64.tar.gz && chmod u+x start.sh && chmod -R 777 ./bin && chmod -R 777 ./PocketMine-MP.phar",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "green"
+                }
+            ]
+        },
+        "minecraftBedrockVanillaStart": {
+            "title": "Installing Bedrock Server",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "href": "minecraftBedrockVanillaStartServer",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Extracting and Installing Bedrock Server",
+                    "command": "cd /home/container/ && tar -xzvf bedrock.tar.gz && rm bedrock.tar.gz",
+                    "textColor": "cyan",
+                    "output": true,
+                    "outputColor": "green"
+                }
+            ]
+        },
+        "minecraftBedrockPocketStart": {
+            "title": "Starting Server",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "type": "a",
+            "stop": "stop",
+            "exec": {
+                "command": "cd /home/container/ && ./bin/php7/bin/php ./PocketMine-MP.phar $@"
+            },
+            "blockedInputs": [
+                "$equals(reload)"
+            ],
+            "blockedOutputs": [
+                "$contains(Hibernate)",
+                "$contains(Can’t Keep Up!)"
+            ],
+            "consoleColor": "whiteBright",
+            "consoleErrorColor": "red"
+        },
+        "minecraftBedrockVanillaStartServer": {
+            "title": "Starting the Bedrock server",
+            "font": "ANSI Shadow",
+            "textColor": "yellow",
+            "scripts": [
+                "clear"
+            ],
+            "type": "a",
+            "stop": "stop",
+            "exec": {
+                "command": "cd /home/container/ && chmod +x bedrock_server && ./bedrock_server"
+            },
+            "blockedInputs": [
+                "$equals(reload)"
+            ],
+            "blockedOutputs": [
+                "$contains(Hibernate)",
+                "$contains(Can’t Keep Up!)"
+            ],
+            "consoleColor": "whiteBright",
+            "consoleErrorColor": "red"
+        }
+    }
+}
