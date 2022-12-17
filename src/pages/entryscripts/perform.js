@@ -133,8 +133,8 @@ const scripts = {
 export default async function performEntryScripts(data) {
     for (let i = 0; i < data.length; i++) {
         const v = data[i];
-        if (scripts[v.split("-")[0]]) {
-            let a = await scripts[v.split("-")[0]](...v.split("-").slice(1))
+        if (scripts[v.split("(&?&)")[0]]) {
+            let a = await scripts[v.split("(&?&)")[0]](...v.split("(&?&)").slice(1))
             a = await a
         }
     }

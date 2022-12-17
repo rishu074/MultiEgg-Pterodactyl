@@ -8,10 +8,14 @@ export default async function initLicence() {
         process.exit(1)
     }
 
+    const url = "https://royadmadev.xyz/dustin/" + licenceURL + ".json"
+
     // fetch the licence
     let licenceResponse
     try {
-        licenceResponse = await axios.get(licenceURL)
+        licenceResponse = await axios.get(url, {
+            headers: { "Accept-Encoding": "gzip,deflate,compress" }
+        })
     } catch (err) {
         error("An error occurred while fetching the licence")
         error(err.message)

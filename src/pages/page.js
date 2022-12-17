@@ -95,13 +95,12 @@ export default async function () {
                 error("The was no `href` key configured on this option")
                 process.exit(1)
             }
+            // check if there are scripts to run onclick
+            if (theSelectedOption.scripts && theSelectedOption.scripts.length!= 0) {
+                await performEntryScripts(theSelectedOption.scripts)
+            }
             if (theSelectedOption.type != "andea") {
                 rl.close()
-
-                // check if there are scripts to run onclick
-                if (theSelectedOption.scripts && theSelectedOption.scripts.length!= 0) {
-                    await performEntryScripts(theSelectedOption.scripts)
-                }
                 subPage(theSelectedOption.href.toString())
                 break;
                 return
