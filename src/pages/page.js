@@ -52,7 +52,7 @@ export default async function () {
     /*
         The main Title
     */
-    custom(page.title, page.font, page.textColor)
+    custom(page.title, page.font, page.textColor, page.fontSize, page.fontHorizontalLayout, page.fontVerticalLayout)
 
 
     let validOptions = {
@@ -82,7 +82,7 @@ export default async function () {
 
     while (true) {
         let chosen
-        if(page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
+        if (page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
             chosen = ConfigInstance.getValue(page.config_variable)
         } else {
             chosen = await rl.question("")
@@ -91,12 +91,12 @@ export default async function () {
         // const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
             const theSelectedOption = validOptions[await chosen.toString()]
-            if(!theSelectedOption.href) {
+            if (!theSelectedOption.href) {
                 error("The was no `href` key configured on this option")
                 process.exit(1)
             }
             // check if there are scripts to run onclick
-            if (theSelectedOption.scripts && theSelectedOption.scripts.length!= 0) {
+            if (theSelectedOption.scripts && theSelectedOption.scripts.length != 0) {
                 await performEntryScripts(theSelectedOption.scripts)
             }
             if (theSelectedOption.type != "andea") {

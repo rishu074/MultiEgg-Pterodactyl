@@ -51,7 +51,7 @@ async function subPage(page) {
     /*
         The main Title
     */
-    custom(page.title, page.font, page.textColor)
+    custom(page.title, page.font, page.textColor, page.fontSize)
 
 
 
