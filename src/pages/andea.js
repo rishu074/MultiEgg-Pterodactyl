@@ -59,7 +59,8 @@ export default async function andeaFuc(andea) {
                 try {
                     v.command = parseThisString(v.command)
                     const runner = spawnSync(v.command.split(" ")[0], [...v.command.split(" ").slice(1)], {
-                        shell: true
+                        shell: true,
+                        env: andea.env && Object.keys(andea.env).length != 0 ? {...process.env, ...andea.env} : {...process.env}
                     })
                     // console.log(runner)
                     if (v.output) {

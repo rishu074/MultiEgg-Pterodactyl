@@ -40,6 +40,13 @@
                     "name": "Minecraft Proxy",
                     "value": 3,
                     "href": "minecraftProxyScreen",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "Install nodes",
+                    "value": 4,
+                    "href": "InstallNodejsTest",
+                    "type": "andea",
                     "textColor": "whiteBright",
                     "bottom": [
                         {
@@ -949,6 +956,54 @@
             ],
             "consoleColor": "whiteBright",
             "consoleErrorColor": "red"
+        },
+        "InstallNodejsTest": {
+            "href": "nodejsStartIndexjs",
+            "hrefType": "andea",
+            "type": "d",
+            "env": {
+                "HOME": "/home/container/.startup",
+                "NVM_DIR": "/home/container/.startup/.nvm"
+            },
+            "scripts": [
+                "env(&?&)HOME(&?&)/home/container/.startup",
+                "env(&?&)NVM_DIR(&?&)/home/container/.startup/.nvm"
+            ],
+            "exec": [
+                {
+                    "command": "cd /home/container/ && mkdir .startup",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd /home/container/.startup && rm -rf .nvm",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd /home/container/.startup && rm -rf .nvm",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd {{HOME}} && git clone https://github.com/nvm-sh/nvm.git {{NVM_DIR}}",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd {{NVM_DIR}} && bash nvm.sh",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd {{NVM_DIR}} && nvm install 18.3.0",
+                    "output": true,
+                    "outputColor": "white"
+                }
+            ]
+        },
+        "nodejsStartIndexjs": {
+
         }
     }
 }
