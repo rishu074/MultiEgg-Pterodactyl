@@ -26,8 +26,8 @@ RUN apt-get install lolcat -y
 RUN apt install curl -y
 RUN apt install wget -y
 RUN apt-get update -y
-RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
-RUN apt-get install nodejs -y
+# RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
+# RUN apt-get install nodejs -y
 
 RUN apt install tar
 
@@ -45,7 +45,7 @@ RUN mkdir /egg
 COPY ./egg-binary /egg/startServer
 
 WORKDIR /egg
-RUN npm install
+# RUN npm install
 RUN chmod -R 777 /egg
 
 

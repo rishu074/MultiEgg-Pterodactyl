@@ -28,7 +28,7 @@
                             "textColor": "whiteBright"
                         }
                     ],
-                    "scripts": ["env(&?&)test(&?&)hey"]
+                    "scripts": ["env(&?&)TEST(&?&)i choosed Minecraft Java"]
                 },
                 {
                     "name": "Minecraft Bedrock",
@@ -89,7 +89,7 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\nDo you want us to install clearlag plugin for you?",
+                            "text": "\nDo you want us to install clearlag plugin for you? {{TEST}}",
                             "textColor": "whiteBright"
                         }
                     ],

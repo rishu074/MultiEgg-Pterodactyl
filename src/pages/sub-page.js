@@ -56,7 +56,7 @@ async function subPage(page) {
         custom(parseThisString(page.title), page.font, page.textColor, page.fontSize, page.fontHorizontalLayout, page.fontVerticalLayout)
     }
 
-    console.log(process.env)
+    // console.log(process.env)
 
 
 
