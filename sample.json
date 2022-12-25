@@ -3,10 +3,10 @@
     "config": {
         "enabled": true,
         "path": "/home/container",
-        "file": "CozeCloud_egg_config.json"
+        "file": "user_config.json"
     },
     "motd": {
-        "name": "CozeCloud",
+        "name": "DNxRG",
         "scripts": [
             "wait(&?&)5000"
         ],
@@ -16,175 +16,158 @@
     "pages": {
         "default": "main",
         "main": {
-            "title": "Choose your Game",
-            "top": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
-                    "textColor": "cyan"
-                }
-            ],
-            "bottom": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                    "textColor": "gold"
-                }
-            ],
             "options": [
                 {
                     "name": "Minecraft Java",
                     "value": 1,
-                    "href": "minecraftJavaScreen",
+                    "href": "clearLagAskScreen",
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose your game",
+                            "textColor": "whiteBright"
                         }
-                    ]
+                    ],
+                    "scripts": ["env(&?&)test(&?&)hey"]
                 },
                 {
                     "name": "Minecraft Bedrock",
                     "value": 2,
                     "href": "minecraftBedrockScreen",
-                    "textColor": "whiteBright",
-                    "top": [
-                        {
-                            "text": "",
-                            "textColor": "red"
-                        }
-                    ]
+                    "textColor": "whiteBright"
                 },
                 {
                     "name": "Minecraft Proxy",
                     "value": 3,
                     "href": "minecraftProxyScreen",
                     "textColor": "whiteBright",
-                    "top": [
-                        {
-                            "text": "",
-                            "textColor": "red"
-                        }
-                    ],
                     "bottom": [
                         {
-                            "text": "\n Choose From 1 to 4",
+                            "text": "Choose From 1 to 4\n",
                             "textColor": "green"
                         }
                     ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "main_page_selected"
         },
         "minecraftJavaScreen": {
-            "title": "Minecraft Java",
-            "top": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
-                    "textColor": "cyan"
-                }
-            ],
-            "bottom": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                    "textColor": "gold"
-                }
-            ],
             "options": [
                 {
                     "name": "Paper",
                     "value": 1,
                     "href": "minecraftJavaScreenPaper",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\nChoose any type",
+                            "textColor": "whiteBright"
+                        }
+                    ]
                 },
                 {
                     "name": "purper",
                     "value": 2,
                     "href": "minecraftJavaScreenPurper",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "bottom": [
+                        {
+                            "text": "Choose From 1 to 2",
+                            "textColor": "green"
+                        }
+                    ]
                 }
             ],
-            "scripts": [
-                "clear",
-                "plugin(&?&)https://drive.royadmadev.xyz/file/7cae5ae0-8ed5-4ed4-b911-cf33185ea3bc.jar/shared/Kcfh3O0isciGP1Gk(&?&)clearlag.jar",
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "main_java"
         },
+        "clearLagAskScreen": {
+            "options": [
+                {
+                    "name": "yes",
+                    "value": 1,
+                    "href": "minecraftJavaScreen",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\nDo you want us to install clearlag plugin for you?",
+                            "textColor": "whiteBright"
+                        }
+                    ],
+                    "scripts": [
+                        "plugin(&?&)https://drive.royadmadev.xyz/file/7cae5ae0-8ed5-4ed4-b911-cf33185ea3bc.jar/shared/Kcfh3O0isciGP1Gk(&?&)clearlag.jar"
+                    ]
+                },
+                {
+                    "name": "no",
+                    "value": 2,
+                    "href": "minecraftJavaScreen",
+                    "textColor": "whiteBright",
+                    "bottom": [
+                        {
+                            "text": "Choose From 1 to 2",
+                            "textColor": "green"
+                        }
+                    ]
+                }
+            ],
+            "config_variable": "clear_lag_option"
+        },
         "minecraftProxyScreen": {
-            "title": "Minecraft Proxy",
-            "top": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
-                    "textColor": "cyan"
-                }
-            ],
-            "bottom": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                    "textColor": "gold"
-                }
-            ],
             "options": [
                 {
                     "name": "Waterfall",
                     "value": 1,
                     "href": "minecraftProxyScreenWaterfall",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\nChoose any type of game",
+                            "textColor": "whiteBright"
+                        }
+                    ]
                 },
                 {
                     "name": "Bungee",
                     "value": 2,
                     "href": "minecraftProxyScreenBungee",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "bottom": [
+                        {
+                            "text": "Choose From 1 to 2",
+                            "textColor": "green"
+                        }
+                    ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "main_proxy"
         },
         "minecraftBedrockScreen": {
-            "title": "Minecraft Bedrock",
-            "top": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
-                    "textColor": "cyan"
-                }
-            ],
-            "bottom": [
-                {
-                    "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Join Evomc (https://discord.gg/6vm34TpVHQ) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                    "textColor": "gold"
-                }
-            ],
             "options": [
                 {
                     "name": "Vanilla Bedrock",
                     "value": 1,
                     "href": "minecraftBedrockScreenVanilla",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\nChoose any type of game",
+                            "textColor": "whiteBright"
+                        }
+                    ]
                 },
                 {
                     "name": "PocketMine",
                     "value": 2,
                     "href": "minecraftBedrockScreenPocket",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "bottom": [
+                        {
+                            "text": "Choose From 1 to 2",
+                            "textColor": "green"
+                        }
+                    ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "main_proxy"
         },
         "minecraftProxyScreenWaterfall": {
@@ -197,27 +180,24 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any version",
+                            "textColor": "whiteBright"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\nYou have only 1 option.",
+                            "textColor": "green"
                         }
                     ],
                     "scripts": [
-                        "clear",
-                        "jar(&?&)https://serverfiles.dnxrg.net/waterfall/1.19(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "jar(&?&)https://serverfiles.dnxrg.net/waterfall/1.19(&?&)server.jar"
                     ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "waterfall_version"
         },
         "minecraftBedrockScreenPocket": {
-            "title": "PocketMine MP",
             "options": [
                 {
                     "name": "latest",
@@ -227,30 +207,26 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any version",
+                            "textColor": "whiteBright"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\nYou have only 1 option.",
+                            "textColor": "green"
                         }
                     ],
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/pmmp/start.sh(&?&)start.sh",
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/pmmp/PocketMine-MP.phar(&?&)PocketMine-MP.phar",
-                        "clear",
-                        "jar(&?&)https://serverfiles.dnxrg.net/pmmp/PHP-8.0-Linux-x86_64.tar.gz(&?&)PHP-8.0-Linux-x86_64.tar.gz",
-                        "clear"
+                        "jar(&?&)https://serverfiles.dnxrg.net/pmmp/PHP-8.0-Linux-x86_64.tar.gz(&?&)PHP-8.0-Linux-x86_64.tar.gz"
                     ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
-            "config_variable": "bungee_version"
+            "config_variable": "pocket_version"
         },
         "minecraftBedrockScreenVanilla": {
-            "title": "Vanilla Bedrock",
             "options": [
                 {
                     "name": "latest",
@@ -259,24 +235,21 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any version",
+                            "textColor": "whiteBright"
                         }
                     ],
-                    "scripts": [
-                        "clear"
+                    "bottom": [
+                        {
+                            "text": "\nYou have only 1 option.",
+                            "textColor": "green"
+                        }
                     ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
-            "config_variable": "bungee_version"
+            "config_variable": "bedrock_version"
         },
         "minecraftBedrockVanillaSelector": {
-            "title": "Type Selector",
             "options": [
                 {
                     "name": "Download All files (Might resets your world because it downloads everything eg. world etc)",
@@ -286,12 +259,11 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose what to download",
+                            "textColor": "whiteBright"
                         }
                     ],
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/bedrockall/server.tar.gz(&?&)bedrock.tar.gz",
                         "wait(&?&)1000"
                     ]
@@ -303,20 +275,19 @@
                     "type": "andea",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/bedrockstarter/simple.tar.gz(&?&)bedrock.tar.gz",
                         "wait(&?&)1000"
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\nChoose from 1 to 2.",
+                            "textColor": "green"
+                        }
                     ]
                 }
-            ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan"
+            ]
         },
         "minecraftProxyScreenBungee": {
-            "title": "Bungee",
             "options": [
                 {
                     "name": "1.19",
@@ -325,106 +296,105 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any version",
+                            "textColor": "whiteBright"
+                        }
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\nYou have only 1 option.",
+                            "textColor": "green"
                         }
                     ],
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/bungee/1.19(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "wait(&?&)1000"
                     ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "bungee_version"
         },
         "minecraftJavaScreenPaper": {
-            "title": "Minecraft Paper",
             "options": [
                 {
-                    "name": "1.19.2",
+                    "name": "1.19.3",
                     "value": 1,
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any version",
+                            "textColor": "whiteBright"
                         }
                     ],
                     "scripts": [
-                        "clear",
-                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19.2(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19.3(&?&)server.jar",
+                        "wait(&?&)1000"
                     ]
                 },
                 {
-                    "name": "1.19",
+                    "name": "1.19.2",
                     "value": 2,
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
-                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19.2(&?&)server.jar",
+                        "wait(&?&)1000"
                     ]
                 },
                 {
-                    "name": "1.16.5",
+                    "name": "1.19",
                     "value": 3,
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
-                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.16.5(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.19(&?&)server.jar",
+                        "wait(&?&)1000"
                     ]
                 },
                 {
-                    "name": "1.12.2",
+                    "name": "1.16.5",
                     "value": 4,
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
-                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.12.2(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.16.5(&?&)server.jar",
+                        "wait(&?&)1000"
                     ]
                 },
                 {
-                    "name": "1.8.8",
+                    "name": "1.12.2",
                     "value": 5,
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
+                        "jar(&?&)https://serverfiles.dnxrg.net/paper/1.12.2(&?&)server.jar",
+                        "wait(&?&)1000"
+                    ]
+                },
+                {
+                    "name": "1.8.8",
+                    "value": 6,
+                    "href": "minecraftJavaChooseJava",
+                    "textColor": "whiteBright",
+                    "scripts": [
                         "jar(&?&)https://serverfiles.dnxrg.net/paper/1.8.8(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "wait(&?&)1000"
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\nChoose from 1 to 6.",
+                            "textColor": "green"
+                        }
                     ]
                 }
             ],
             "scripts": [
-                "clear",
-                "plugin(&?&)https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar(&?&)hibernate.jar",
-                "clear"
+                "plugin(&?&)https://serverfiles.dnxrg.net/plugins/plugins/dnxrghibernate.jar(&?&)hibernate.jar"
             ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "paper_version"
         },
         "minecraftJavaScreenPurper": {
-            "title": "Minecraft Purper",
             "options": [
                 {
                     "name": "1.19.2",
@@ -433,15 +403,13 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any version",
+                            "textColor": "whiteBright"
                         }
                     ],
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/purper/1.19.2(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "wait(&?&)1000"
                     ]
                 },
                 {
@@ -450,10 +418,8 @@
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/purper/1.19(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "wait(&?&)1000"
                     ]
                 },
                 {
@@ -462,24 +428,23 @@
                     "href": "minecraftJavaChooseJava",
                     "textColor": "whiteBright",
                     "scripts": [
-                        "clear",
                         "jar(&?&)https://serverfiles.dnxrg.net/purper/1.16.5(&?&)server.jar",
-                        "wait(&?&)1000",
-                        "clear"
+                        "wait(&?&)1000"
+                    ],
+                    "bottom": [
+                        {
+                            "text": "\nChoose from 1 to 3.",
+                            "textColor": "green"
+                        }
                     ]
                 }
             ],
             "scripts": [
-                "clear",
-                "plugin(&?&)https://cdn.dnxrg.net/uploads/0Lo7LoGc3eyxZfHcXG1H.jar(&?&)hibernate.jar",
-                "clear"
+                "plugin(&?&)https://serverfiles.dnxrg.net/plugins/plugins/dnxrghibernate.jar(&?&)hibernate.jar"
             ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "paper_version"
         },
         "minecraftJavaChooseJavaProxy": {
-            "title": "Choose java version",
             "options": [
                 {
                     "name": "java8",
@@ -489,8 +454,8 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any java version",
+                            "textColor": "whiteBright"
                         }
                     ]
                 },
@@ -513,18 +478,18 @@
                     "value": 4,
                     "type": "andea",
                     "href": "minecraftJavaChooseJava17Proxy",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "bottom": [
+                        {
+                            "text": "\nChoose from 1 to 4.",
+                            "textColor": "green"
+                        }
+                    ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "java"
         },
         "minecraftJavaChooseJava": {
-            "title": "Choose java version",
             "options": [
                 {
                     "name": "java8",
@@ -534,8 +499,8 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\n",
-                            "textColor": "red"
+                            "text": "\nChoose any java version",
+                            "textColor": "whiteBright"
                         }
                     ]
                 },
@@ -558,22 +523,20 @@
                     "value": 4,
                     "type": "andea",
                     "href": "minecraftJavaChooseJava17",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "bottom": [
+                        {
+                            "text": "\nChoose from 1 to 4.",
+                            "textColor": "green"
+                        }
+                    ]
                 }
             ],
-            "scripts": [
-                "clear"
-            ],
-            "font": "ANSI Shadow",
-            "textColor": "cyan",
             "config_variable": "java"
         }
     },
     "andeas": {
         "minecraftJavaChooseJava8": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -612,9 +575,6 @@
             ]
         },
         "minecraftJavaChooseJava11": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -653,9 +613,6 @@
             ]
         },
         "minecraftJavaChooseJava16": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -694,9 +651,6 @@
             ]
         },
         "minecraftJavaChooseJava17": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -735,9 +689,6 @@
             ]
         },
         "minecraftJavaChooseJava8Proxy": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -776,9 +727,6 @@
             ]
         },
         "minecraftJavaChooseJava11Proxy": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -817,9 +765,6 @@
             ]
         },
         "minecraftJavaChooseJava16Proxy": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -858,9 +803,6 @@
             ]
         },
         "minecraftJavaChooseJava17Proxy": {
-            "title": "Installing Java",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -899,9 +841,6 @@
             ]
         },
         "minecraftJavaStartServer": {
-            "title": "Starting",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -921,9 +860,6 @@
             "consoleErrorColor": "red"
         },
         "minecraftProxyStartServer": {
-            "title": "Starting",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -943,9 +879,6 @@
             "consoleErrorColor": "red"
         },
         "minecraftBedrockPocketExecutor": {
-            "title": "Install Pocket-Mine server",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -963,9 +896,6 @@
             ]
         },
         "minecraftBedrockVanillaStart": {
-            "title": "Installing Bedrock Server",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -983,9 +913,6 @@
             ]
         },
         "minecraftBedrockPocketStart": {
-            "title": "Starting Server",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],
@@ -1001,13 +928,10 @@
                 "$contains(Hibernate)",
                 "$contains(Can’t Keep Up!)"
             ],
-            "consoleColor": "whiteBright",
+            "consoleColor": "white",
             "consoleErrorColor": "red"
         },
         "minecraftBedrockVanillaStartServer": {
-            "title": "Starting the Bedrock server",
-            "font": "ANSI Shadow",
-            "textColor": "yellow",
             "scripts": [
                 "clear"
             ],

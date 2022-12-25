@@ -127,6 +127,9 @@ const scripts = {
             error(err.message)
             process.exit(1)
         }
+    },
+    "env": async (key, value) => {
+        process.env[key] = value
     }
 }
 

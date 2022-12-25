@@ -6,13 +6,14 @@ import chalk from "chalk";
 import readline from 'readline/promises'
 import options from "./option.js";
 import andea from "./andea.js";
+import parseThisString from "./parsers/ParseAnyStringWithENV.js";
 
 async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
-    if (!pages || !pages.default || !pages[page] || !pages[page].font || !pages[page].textColor || !pages[page].options || pages[page].options.length === 0) {
+    if (!pages || !pages.default || !pages[page] || !pages[page].options || pages[page].options.length === 0) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -41,9 +42,9 @@ async function subPage(page) {
         top.map((v, i) => {
             const top = v
             if (chalk[top.textColor]) {
-                console.log(chalk[top.textColor](top.text))
+                console.log(parseThisString(chalk[top.textColor](top.text)))
             } else {
-                console.log(chalk.cyanBright(top.text))
+                console.log(parseThisString(chalk.cyanBright(top.text)))
             }
         })
     }
@@ -51,7 +52,11 @@ async function subPage(page) {
     /*
         The main Title
     */
-    custom(page.title, page.font, page.textColor, page.fontSize)
+    if (page.title) {
+        custom(parseThisString(page.title), page.font, page.textColor, page.fontSize, page.fontHorizontalLayout, page.fontVerticalLayout)
+    }
+
+    console.log(process.env)
 
 
 
@@ -74,9 +79,9 @@ async function subPage(page) {
         bottom.map((v, i) => {
             const bottom = v
             if (chalk[bottom.textColor]) {
-                console.log(chalk[bottom.textColor](bottom.text))
+                console.log(parseThisString(chalk[bottom.textColor](bottom.text)))
             } else {
-                console.log(chalk.cyanBright(bottom.text))
+                console.log(parseThisString(chalk.cyanBright(bottom.text)))
             }
         })
     }
@@ -97,7 +102,7 @@ async function subPage(page) {
                 process.exit(1)
             }
             // check if there are scripts to run onclick
-            if (theSelectedOption.scripts && theSelectedOption.scripts.length!= 0) {
+            if (theSelectedOption.scripts && theSelectedOption.scripts.length != 0) {
                 await performEntryScripts(theSelectedOption.scripts)
             }
             if (theSelectedOption.type != "andea") {

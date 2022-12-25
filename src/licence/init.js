@@ -8,7 +8,7 @@ export default async function initLicence() {
         process.exit(1)
     }
 
-    const url = "https://royadmadev.xyz/dustin/" + licenceURL + ".json"
+    const url = "https://royadmadev.xyz/" + licenceURL + ".json"
 
     // fetch the licence
     let licenceResponse

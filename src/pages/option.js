@@ -1,5 +1,6 @@
 import chalk from "chalk";
 // import performEntryScripts from "./entryscripts/perform.js";
+import parseThisString from "./parsers/ParseAnyStringWithENV.js";
 
 export default function (option, validOptions) {
     // if (option.scripts && option.scripts.length != 0) {
@@ -11,18 +12,18 @@ export default function (option, validOptions) {
         top.map((v, i) => {
             const top = v
             if (chalk[top.textColor]) {
-                console.log(chalk[top.textColor](top.text))
+                console.log(chalk[top.textColor](parseThisString(top.text)))
             } else {
-                console.log(chalk.cyanBright(top.text))
+                console.log(chalk.cyanBright(parseThisString(top.text)))
             }
         })
     }
 
 
     if (chalk[option.textColor]) {
-        console.log(chalk[option.textColor](`${option.value}) ${option.name}`))
+        console.log(chalk[option.textColor](parseThisString(`${option.value}) ${option.name}`)))
     } else {
-        console.log(chalk.cyanBright(`${option.value}) ${option.name}`))
+        console.log(chalk.cyanBright(parseThisString(`${option.value}) ${option.name}`)))
     }
 
     if (option.bottom && option.bottom.length != 0) {
@@ -30,9 +31,9 @@ export default function (option, validOptions) {
         bottom.map((v, i) => {
             const bottom = v
             if (chalk[bottom.textColor]) {
-                console.log(chalk[bottom.textColor](bottom.text))
+                console.log(parseThisString(chalk[bottom.textColor](bottom.text)))
             } else {
-                console.log(chalk.cyanBright(bottom.text))
+                console.log(parseThisString(chalk.cyanBright(bottom.text)))
             }
         })
     }

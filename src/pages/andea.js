@@ -8,6 +8,7 @@ import subPage from "./sub-page.js";
 import parse_blocked from '../functions/inAndOutFunc.js'
 import readline from "readline";
 import fs from 'fs'
+import parseThisString from "./parsers/ParseAnyStringWithENV.js";
 
 export default async function andeaFuc(andea) {
     licenceChecker()
@@ -28,9 +29,9 @@ export default async function andeaFuc(andea) {
         top.map((v, i) => {
             const top = v
             if (chalk[top.textColor]) {
-                console.log(chalk[top.textColor](top.text))
+                console.log(parseThisString(chalk[top.textColor](top.text)))
             } else {
-                console.log(chalk.cyanBright(top.text))
+                console.log(parseThisString(chalk.cyanBright(top.text)))
             }
         })
     }
@@ -43,8 +44,7 @@ export default async function andeaFuc(andea) {
     }
 
 
-    if (andea.title && andea.font && andea.textColor) custom(andea.title, andea.font, andea.textColor)
-    console.log("\n\n")
+    if (andea.title && andea.font && andea.textColor) custom(parseThisString(andea.title), andea.font, andea.textColor)
 
     try {
         //execute the minimal type means execute in Synchronus Way
@@ -54,15 +54,16 @@ export default async function andeaFuc(andea) {
             for (let i = 0; i < toExecuteCommands.length; i++) {
                 const v = toExecuteCommands[i];
 
-                if (v.message) console.log(v.textColor && chalk[v.textColor] ? chalk[v.textColor](v.message) : chalk.cyanBright(v.message))
+                if (v.message) console.log(parseThisString(v.textColor && chalk[v.textColor] ? chalk[v.textColor](v.message) : chalk.cyanBright(v.message)))
 
                 try {
+                    v.command = parseThisString(v.command)
                     const runner = spawnSync(v.command.split(" ")[0], [...v.command.split(" ").slice(1)], {
                         shell: true
                     })
                     // console.log(runner)
                     if (v.output) {
-                        console.log(v.outputColor && chalk[v.outputColor] ? chalk[v.outputColor](runner.stdout.toString(), "\n", runner.stderr.toString()) : chalk.redBright(runner.stdout.toString(), "\n", runner.stderr.toString()))
+                        console.log(parseThisString(v.outputColor && chalk[v.outputColor] ? chalk[v.outputColor](runner.stdout.toString(), "\n", runner.stderr.toString()) : chalk.redBright(runner.stdout.toString(), "\n", runner.stderr.toString())))
                     }
 
                 } catch (err) {
@@ -74,7 +75,7 @@ export default async function andeaFuc(andea) {
         } else {
             // type a andea
 
-            var toExecuteCommands = andea.exec.command
+            var toExecuteCommands = parseThisString(andea.exec.command)
             // console.log(process.env)
 
             // remove all the file listeners
@@ -88,15 +89,15 @@ export default async function andeaFuc(andea) {
                 }
             }
 
-            // parse startup commands
-            // like parse java -jar server.jar -Xmx {SERVER_MEMORY}M to java -jar server.jar -Xmx 12M
-            Object.keys(process.env).map((key, i) => {
-                const value = process.env[key]
+            // // parse startup commands
+            // // like parse java -jar server.jar -Xmx {SERVER_MEMORY}M to java -jar server.jar -Xmx 12M
+            // Object.keys(process.env).map((key, i) => {
+            //     const value = process.env[key]
 
-                if (toExecuteCommands.toString().includes("${" + key + "}")) {
-                    toExecuteCommands = toExecuteCommands.replace("${" + key + "}", value)
-                }
-            })
+            //     if (toExecuteCommands.toString().includes("${" + key + "}")) {
+            //         toExecuteCommands = toExecuteCommands.replace("${" + key + "}", value)
+            //     }
+            // })
 
             process.stdin.resume()
             // console.log(process.stdin.isPaused())

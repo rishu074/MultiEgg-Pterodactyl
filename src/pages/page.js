@@ -7,13 +7,14 @@ import readline from 'readline/promises'
 import subPage from "./sub-page.js";
 import options from "./option.js";
 import andea from "./andea.js";
+import parseThisString from "./parsers/ParseAnyStringWithENV.js";
 
 export default async function () {
     licenceChecker()
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
-    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].font || !pages[pages.default].textColor || !pages[pages.default].options || pages[pages.default].options.length === 0) {
+    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].options || pages[pages.default].options.length === 0) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -42,9 +43,9 @@ export default async function () {
         top.map((v, i) => {
             const top = v
             if (chalk[top.textColor]) {
-                console.log(chalk[top.textColor](top.text))
+                console.log(chalk[top.textColor](parseThisString(top.text)))
             } else {
-                console.log(chalk.cyanBright(top.text))
+                console.log(chalk.cyanBright(parseThisString(top.text)))
             }
         })
     }
@@ -52,7 +53,9 @@ export default async function () {
     /*
         The main Title
     */
-    custom(page.title, page.font, page.textColor, page.fontSize, page.fontHorizontalLayout, page.fontVerticalLayout)
+   if(page.title) {
+       custom(parseThisString(page.title), page.font, page.textColor, page.fontSize, page.fontHorizontalLayout, page.fontVerticalLayout)
+   }
 
 
     let validOptions = {
@@ -73,21 +76,24 @@ export default async function () {
         bottom.map((v, i) => {
             const bottom = v
             if (chalk[bottom.textColor]) {
-                console.log(chalk[bottom.textColor](bottom.text))
+                console.log(parseThisString(chalk[bottom.textColor](bottom.text)))
             } else {
-                console.log(chalk.cyanBright(bottom.text))
+                console.log(parseThisString(chalk.cyanBright(bottom.text)))
             }
         })
     }
 
     while (true) {
         let chosen
+
+        // handle config
         if (page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
             chosen = ConfigInstance.getValue(page.config_variable)
         } else {
             chosen = await rl.question("")
             page.config_variable && ConfigInstance.configEnabled ? ConfigInstance.setValue(page.config_variable, await chosen) : ""
         }
+
         // const chosen = await rl.question("")
         if (validOptions[await chosen.toString()]) {
             const theSelectedOption = validOptions[await chosen.toString()]
@@ -99,13 +105,13 @@ export default async function () {
             if (theSelectedOption.scripts && theSelectedOption.scripts.length != 0) {
                 await performEntryScripts(theSelectedOption.scripts)
             }
+
             if (theSelectedOption.type != "andea") {
                 rl.close()
                 subPage(theSelectedOption.href.toString())
                 break;
                 return
             } else {
-                // andea here
                 andea(theSelectedOption.href)
                 rl.close()
                 break;
