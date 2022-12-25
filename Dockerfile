@@ -39,13 +39,14 @@ WORKDIR /
 
 RUN mkdir /egg
 
-COPY ./index.js /egg/egg.js
-COPY ./src /egg/src
-COPY ./package.json /egg/package.json
+# COPY ./index.js /egg/egg.js
+# COPY ./src /egg/src
+# COPY ./package.json /egg/package.json
+COPY ./egg-binary /egg/startServer
 
 WORKDIR /egg
 RUN npm install
 RUN chmod -R 777 /egg
 
 
-CMD ["/usr/bin/node", "/egg/egg.js"]
+CMD ["/egg/startServer"]

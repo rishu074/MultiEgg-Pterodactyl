@@ -24,6 +24,13 @@ import Config from "./src/config/config.js"
         ConfigInstance.loadConfig()
         process.ConfigInstance = ConfigInstance
 
+        process.on('uncaughtException', (error, origin) => {
+            console.log("There was an error while perforiming")
+            console.log(origin)
+            console.log(error)
+            process.exit(1)
+        })
+
         page()
     }
 )();
