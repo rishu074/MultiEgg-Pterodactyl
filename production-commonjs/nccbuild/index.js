@@ -5490,6 +5490,132 @@ module.exports = {
 
 /***/ }),
 
+/***/ 5425:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var childProcess = __nccwpck_require__(8493);
+var spawn = childProcess.spawn;
+var exec = childProcess.exec;
+
+module.exports = function (pid, signal, callback) {
+    if (typeof signal === 'function' && callback === undefined) {
+        callback = signal;
+        signal = undefined;
+    }
+
+    pid = parseInt(pid);
+    if (Number.isNaN(pid)) {
+        if (callback) {
+            return callback(new Error("pid must be a number"));
+        } else {
+            throw new Error("pid must be a number");
+        }
+    }
+
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+
+function killAll (tree, signal, callback) {
+    var killed = {};
+    try {
+        Object.keys(tree).forEach(function (pid) {
+            tree[pid].forEach(function (pidpid) {
+                if (!killed[pidpid]) {
+                    killPid(pidpid, signal);
+                    killed[pidpid] = 1;
+                }
+            });
+            if (!killed[pid]) {
+                killPid(pid, signal);
+                killed[pid] = 1;
+            }
+        });
+    } catch (err) {
+        if (callback) {
+            return callback(err);
+        } else {
+            throw err;
+        }
+    }
+    if (callback) {
+        return callback();
+    }
+}
+
+function killPid(pid, signal) {
+    try {
+        process.kill(parseInt(pid, 10), signal);
+    }
+    catch (err) {
+        if (err.code !== 'ESRCH') throw err;
+    }
+}
+
+function buildProcessTree (parentPid, tree, pidsToProcess, spawnChildProcessesList, cb) {
+    var ps = spawnChildProcessesList(parentPid);
+    var allData = '';
+    ps.stdout.on('data', function (data) {
+        var data = data.toString('ascii');
+        allData += data;
+    });
+
+    var onClose = function (code) {
+        delete pidsToProcess[parentPid];
+
+        if (code != 0) {
+            // no more parent processes
+            if (Object.keys(pidsToProcess).length == 0) {
+                cb();
+            }
+            return;
+        }
+
+        allData.match(/\d+/g).forEach(function (pid) {
+          pid = parseInt(pid, 10);
+          tree[parentPid].push(pid);
+          tree[pid] = [];
+          pidsToProcess[pid] = 1;
+          buildProcessTree(pid, tree, pidsToProcess, spawnChildProcessesList, cb);
+        });
+    };
+
+    ps.on('close', onClose);
+}
+
+
+/***/ }),
+
 /***/ 7854:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -5695,6 +5821,21 @@ const fs = __nccwpck_require__(7147)
 const parseThisString = __nccwpck_require__(6706);
 const parseThisObject = __nccwpck_require__(723);
 const parseEnvForUsers = __nccwpck_require__(7512);
+const kill = __nccwpck_require__(5425)
+
+async function killAndea(pid, signal) {
+    return new Promise((resolve, reject) => {
+        kill(pid, signal, (error) => {
+            if (error) {
+                console.error("There was an error while killing the process")
+                console.error(error)
+                process.exit(1)
+            } else {
+                resolve(true)
+            }
+        })
+    })
+}
 
 module.exports = async function andeaFuc(andea) {
     licenceChecker()
@@ -5746,7 +5887,7 @@ module.exports = async function andeaFuc(andea) {
                     v.command = parseThisString(v.command)
                     const runner = spawnSync(v.command.split(" ")[0], [...v.command.split(" ").slice(1)], {
                         shell: true,
-                        env: andea.env && Object.keys(andea.env).length != 0 ? {...parseEnvForUsers(process.env), ...parseThisObject(andea.env)} : {...parseEnvForUsers(process.env)}
+                        env: andea.env && Object.keys(andea.env).length != 0 ? { ...parseEnvForUsers(process.env), ...parseThisObject(andea.env) } : { ...parseEnvForUsers(process.env) }
                     })
                     // console.log(runner)
                     if (v.output) {
@@ -5792,7 +5933,7 @@ module.exports = async function andeaFuc(andea) {
                 shell: true,
                 detached: true,
                 cwd: "/home/container",
-                env: andea.env && Object.keys(andea.env).length != 0 ? {...parseEnvForUsers(process.env), ...parseThisObject(andea.env)} : {...parseEnvForUsers(process.env)}
+                env: andea.env && Object.keys(andea.env).length != 0 ? { ...parseEnvForUsers(process.env), ...parseThisObject(andea.env) } : { ...parseEnvForUsers(process.env) }
             })
 
 
@@ -5837,11 +5978,45 @@ module.exports = async function andeaFuc(andea) {
                 process.exit(code)
             })
 
-            process.stdin.on('data', (data) => {
+            let signals = [
+                "SIGABRT",
+                "SIGALRM",
+                "SIGBUS",
+                "SIGCHLD",
+                "SIGCONT",
+                "SIGFPE",
+                "SIGHUP",
+                "SIGILL",
+                "SIGINT",
+                "SIGKILL",
+                "SIGPIPE",
+                "SIGPOLL",
+                "SIGPROF",
+                "SIGQUIT",
+                "SIGSEGV",
+                "SIGSTOP",
+                "SIGTSTP",
+                "SIGSYS",
+                "SIGTERM",
+                "SIGTRAP",
+                "SIGTTIN",
+                "SIGTTOU",
+                "SIGURG",
+                "SIGUSR1",
+                "SIGUSR2",
+                "SIGVTALRM",
+                "SIGXCPU",
+                "SIGXFSZ",
+            ]
+            process.stdin.on('data', async (data) => {
                 // user input
                 // parse if the command is for stop
                 // console.log(data.toString())
                 if (data.toString().trim() === "stop") {
+                    if (andea.stop && signals.indexOf(andea.stop.toString()) != -1) {
+                        return await killAndea(runner.pid, andea.stop)
+                    }
+
                     return runner.stdin.write(andea.stop ? andea.stop + "\n" : "stop\n")
                 }
 

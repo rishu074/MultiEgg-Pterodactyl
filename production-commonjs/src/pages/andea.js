@@ -10,6 +10,21 @@ const fs = require('fs')
 const parseThisString = require("./parsers/ParseAnyStringWithENV.js");
 const parseThisObject = require("./parsers/ParseObjectWithStrings.js");
 const parseEnvForUsers = require("./parsers/parseEnvForUsers.js");
+const kill = require("tree-kill")
+
+async function killAndea(pid, signal) {
+    return new Promise((resolve, reject) => {
+        kill(pid, signal, (error) => {
+            if (error) {
+                console.error("There was an error while killing the process")
+                console.error(error)
+                process.exit(1)
+            } else {
+                resolve(true)
+            }
+        })
+    })
+}
 
 module.exports = async function andeaFuc(andea) {
     licenceChecker()
@@ -61,7 +76,7 @@ module.exports = async function andeaFuc(andea) {
                     v.command = parseThisString(v.command)
                     const runner = spawnSync(v.command.split(" ")[0], [...v.command.split(" ").slice(1)], {
                         shell: true,
-                        env: andea.env && Object.keys(andea.env).length != 0 ? {...parseEnvForUsers(process.env), ...parseThisObject(andea.env)} : {...parseEnvForUsers(process.env)}
+                        env: andea.env && Object.keys(andea.env).length != 0 ? { ...parseEnvForUsers(process.env), ...parseThisObject(andea.env) } : { ...parseEnvForUsers(process.env) }
                     })
                     // console.log(runner)
                     if (v.output) {
@@ -107,7 +122,7 @@ module.exports = async function andeaFuc(andea) {
                 shell: true,
                 detached: true,
                 cwd: "/home/container",
-                env: andea.env && Object.keys(andea.env).length != 0 ? {...parseEnvForUsers(process.env), ...parseThisObject(andea.env)} : {...parseEnvForUsers(process.env)}
+                env: andea.env && Object.keys(andea.env).length != 0 ? { ...parseEnvForUsers(process.env), ...parseThisObject(andea.env) } : { ...parseEnvForUsers(process.env) }
             })
 
 
@@ -152,11 +167,45 @@ module.exports = async function andeaFuc(andea) {
                 process.exit(code)
             })
 
-            process.stdin.on('data', (data) => {
+            let signals = [
+                "SIGABRT",
+                "SIGALRM",
+                "SIGBUS",
+                "SIGCHLD",
+                "SIGCONT",
+                "SIGFPE",
+                "SIGHUP",
+                "SIGILL",
+                "SIGINT",
+                "SIGKILL",
+                "SIGPIPE",
+                "SIGPOLL",
+                "SIGPROF",
+                "SIGQUIT",
+                "SIGSEGV",
+                "SIGSTOP",
+                "SIGTSTP",
+                "SIGSYS",
+                "SIGTERM",
+                "SIGTRAP",
+                "SIGTTIN",
+                "SIGTTOU",
+                "SIGURG",
+                "SIGUSR1",
+                "SIGUSR2",
+                "SIGVTALRM",
+                "SIGXCPU",
+                "SIGXFSZ",
+            ]
+            process.stdin.on('data', async (data) => {
                 // user input
                 // parse if the command is for stop
                 // console.log(data.toString())
                 if (data.toString().trim() === "stop") {
+                    if (andea.stop && signals.indexOf(andea.stop.toString()) != -1) {
+                        return await killAndea(runner.pid, andea.stop)
+                    }
+
                     return runner.stdin.write(andea.stop ? andea.stop + "\n" : "stop\n")
                 }
 
