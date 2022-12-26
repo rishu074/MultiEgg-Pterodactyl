@@ -29,7 +29,8 @@ RUN apt-get update -y
 # RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
 # RUN apt-get install nodejs -y
 
-RUN apt install tar
+RUN apt install tar -y
+RUN apt-get install xz-utils
 
 # figlet -f larry3d "DNxRG"
 # RUN apt install openjdk-11-jdk -y
