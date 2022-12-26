@@ -26,7 +26,7 @@
                 {
                     "name": "Install python(test)",
                     "value": 2,
-                    "href": "InstallPythonTest",
+                    "href": "{{PYTHON_HREF}}",
                     "type": "andea",
                     "textColor": "whiteBright",
                     "bottom": [
@@ -38,7 +38,7 @@
                     "scripts": [
                         "env(&?&)HOME(&?&)/home/container",
                         "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3",
-                        "pathFinder(&?&)/home/container/.startup/python/bin/python3(&?&)NODEJS_HREF(&?&)nodejsStartIndexjs(&?&)InstallNodejsTest"
+                        "pathFinder(&?&)/home/container/.startup/python/bin/python3(&?&)PYTHON_HREF(&?&)PythonStartServer(&?&)InstallPythonTest"
                     ]
                 }
             ],
@@ -185,6 +185,15 @@
                     "outputColor": "white"
                 }
             ]
+        },
+        "PythonStartServer": {
+            "type": "a",
+            "stop": "SIGINT",
+            "exec": {
+                "command": "cd /home/container/ && {{PYTHON}} app.py"
+            },
+            "consoleColor": "whiteBright",
+            "consoleErrorColor": "red"
         },
         "nodejsStartIndexjs": {
             "type": "a",
