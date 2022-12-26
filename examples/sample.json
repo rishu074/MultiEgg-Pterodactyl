@@ -34,6 +34,11 @@
                             "text": "Choose from1 to 2\n",
                             "textColor": "green"
                         }
+                    ],
+                    "scripts": [
+                        "env(&?&)HOME(&?&)/home/container",
+                        "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3",
+                        "pathFinder(&?&)/home/container/.startup/python/bin/python3(&?&)NODEJS_HREF(&?&)nodejsStartIndexjs(&?&)InstallNodejsTest"
                     ]
                 }
             ],
@@ -103,10 +108,6 @@
             "href": "nodejsStartIndexjs",
             "hrefType": "andea",
             "type": "d",
-            "scripts": [
-                "env(&?&)HOME(&?&)/home/container",
-                "env(&?&)PYTHON(&?&)/home/container/.startup/python"
-            ],
             "exec": [
                 {
                     "message": "Installing Python",
@@ -132,31 +133,62 @@
             }
         },
         "InstallPythonTest": {
-            "href": "nodejsStartIndexjs",
+            "href": "LodaB",
             "hrefType": "andea",
             "type": "d",
+            "scripts": [
+                "env(&?&)HOME(&?&)/home/container",
+                "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3"
+            ],
             "exec": [
                 {
-                    "message": "Installing python",
+                    "message": "Installing Python (This is a one time process, it make take few minutes.)",
                     "textColor": "whiteBright",
-                    "command": "cd /home/container/ && {{NPM}} config set prefix \"/home/container/node_modules\"",
+                    "command": "cd /home/container/ && rm -rf .startup",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd /home/container/ && mkdir .startup",
                     "output": false,
                     "outputColor": "white"
                 },
                 {
-                    "command": "cd /home/container/ && {{NPM}} install",
+                    "command": "cd /home/container/.startup && wget -O python.tgz https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz && tar -xzf python.tgz && rm python.tgz",
                     "output": false,
                     "outputColor": "white"
+                },
+                {
+                    "command": "mkdir {{PYTHON}}",
+                    "output": false,
+                    "outputColor": "white"
+                },
+                {
+                    "message": "Configuring Python",
+                    "textColor": "whiteBright",
+                    "command": "cd /home/container/.startup/Python-3.11.1 && ./configure --prefix={{PYTHON}} --enable-optimizations",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "message": "Building Python",
+                    "textColor": "whiteBright",
+                    "command": "cd /home/container/.startup/Python-3.11.1 && make",
+                    "output": true,
+                    "outputColor": "white"
+                },
+                {
+                    "message": "Finalizing Python",
+                    "textColor": "whiteBright",
+                    "command": "cd /home/container/.startup/Python-3.11.1 && make install",
+                    "output": true,
+                    "outputColor": "white"
                 }
-            ],
-            "env": {
-                "PATH": "/home/container/.startup/node-v18.12.1-linux-x64/bin",
-                "HOME": "/home/container"
-            }
-        }, 
+            ]
+        },
         "nodejsStartIndexjs": {
             "type": "a",
-            "stop": "^C",
+            "stop": "SIGINT",
             "scripts": [
                 "env(&?&)HOME(&?&)/home/container",
                 "pathFinder(&?&)/home/container/index.loda(&?&)IS_INDEX(&?&)YES(&?&)NO",
