@@ -5491,7 +5491,9 @@ module.exports = {
 /***/ }),
 
 /***/ 7854:
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const error = __nccwpck_require__(1843)
 
 module.exports = function licenceChecker() {
     const jsonData = process.licence
@@ -5610,6 +5612,33 @@ module.exports = function parse_inputs_and_outputs(str, in_or_out) {
 
     return false
 }
+
+/***/ }),
+
+/***/ 2289:
+/***/ ((module) => {
+
+module.exports = function humanFileSize(bytes, si=false, dp=1) {
+    const thresh = si ? 1000 : 1024;
+
+    if (Math.abs(bytes) < thresh) {
+      return bytes + ' B';
+    }
+
+    const units = si 
+      ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+      : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    let u = -1;
+    const r = 10**dp;
+
+    do {
+      bytes /= thresh;
+      ++u;
+    } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+    return bytes.toFixed(dp) + ' ' + units[u];
+  }
 
 /***/ }),
 
@@ -5875,8 +5904,160 @@ module.exports = async function andeaFuc(andea) {
 /***/ }),
 
 /***/ 418:
-/***/ (() => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+const axios = __nccwpck_require__(4539)
+const error = __nccwpck_require__(1843)
+const fs = __nccwpck_require__(7147)
+const chalk = __nccwpck_require__(8296)
+const humanFileSize = __nccwpck_require__(2289)
+const parseThisArray = __nccwpck_require__(9665)
+
+async function downloadAndSave(plugin, name, dir) {
+    if (!plugin || !name || !dir) {
+        error("Parameters not given to download.")
+        process.exit(1)
+    }
+
+    let response
+    try {
+        response = await axios.get(plugin, { responseType: 'arraybuffer', onDownloadProgress: (ev) => console.log(chalk.greenBright(`Downloading ${name}, Downloaded: ${humanFileSize(ev.loaded)}`)) })
+    } catch (err) {
+        error("There was an error occurred while downloading the file")
+        error(err.message)
+        process.exit(1)
+    }
+
+    if (await response.status === 200) {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir)
+        }
+
+        try {
+            // console.log(plugin)
+            // console.log(Buffer.from(response.data).length)
+            fs.writeFileSync(dir + '/' + name, Buffer.from(response.data))
+
+            // if the file
+            // is successfully there
+            // watch for it to not to be changed
+            // or killed
+            if (process.watchableFiles && process.watchableFiles.indexOf(dir + '/' + name) != -1) {
+                //file is being already watched
+                //remove the watcher
+                fs.unwatchFile(dir + '/' + name)
+            }
+            fs.watchFile(dir + '/' + name, (c, p) => {
+                error("Detected abuse of the rule, shutting down the server")
+                process.exit(1)
+            })
+
+            if (!process.watchableFiles) process.watchableFiles = []
+            process.watchableFiles.push(dir + '/' + name)
+        } catch (err) {
+            error("There was an error occurred while downloading the file " + name)
+            error(err.message)
+            process.exit(1)
+        }
+
+        return await response.status
+    }
+}
+
+const scripts = {
+    "clear": () => console.clear(),
+    "plugin": async (plugin, name) => {
+        let a = await downloadAndSave(plugin, name, "/home/container/plugins")
+        return await a
+    },
+    "jar": async (link, name) => {
+        let a = await downloadAndSave(link, name, "/home/container")
+        return await a
+    },
+    "wait": async (ms) => {
+        return new Promise((resolve) => {
+            setTimeout(resolve, parseInt(ms));
+        });
+    },
+    "replace": async (file, find, replace) => {
+        if (!fs.existsSync(file)) {
+            error(`The file ${file} does not exists`)
+            process.exit(1)
+        }
+
+        try {
+            let fileF = fs.readFileSync(file, "utf-8")
+
+            //parse the string for variables
+            let toReplace = replace
+            Object.keys(process.env).map((key, i) => {
+                const value = process.env[key]
+
+                if (toReplace.toString().includes("${" + key + "}")) {
+                    toReplace = toReplace.replace("${" + key + "}", value)
+                }
+            })
+
+            fileF = fileF.replace(find, toReplace)
+            fs.writeFileSync(file, fileF, { encoding: "utf-8" })
+        } catch (err) {
+            error(`There was an error in replace function with file '${file}', toFindText: '${find}', toReplace: ${replace}`)
+            error(err.message)
+            process.exit(1)
+        }
+
+    },
+    "create": async (file, data) => {
+        try {
+            fs.writeFileSync(file, data, { encoding: "utf-8" })
+        } catch (err) {
+            error(`There was an error in while writing the file: '${file}', dataL '${data}'`)
+            error(err.message)
+            process.exit(1)
+        }
+    },
+    "download": async (file, name, dir) => {
+        let a = await downloadAndSave(file, name, dir)
+        return await a
+    },
+    "delete": async (file, recursive) => {
+        if(!recursive) {
+            recursive = false
+        } else {
+            recursive = recursive === "true"
+        }
+
+        if(recursive && !fs.existsSync(file)) return
+
+        try {
+            fs.unlinkSync(file)
+        } catch (err) {
+            error("An error occurred while deleting the file, you should pass recursive=true to avoid this.")
+            error(err.message)
+            process.exit(1)
+        }
+    },
+    "env": async (key, value) => {
+        process.env[key] = value
+    },
+    "pathFinder": async (path = "/home/container", key = "JUST_TEST_KEY", val1 = "TEST_VAL_1", val2 = "TEST_VAL_2") => {
+        if(fs.existsSync(path)) {
+            process.env[key] = val1
+        } else {
+            process.env[key] = val2
+        }
+    }
+}
+
+module.exports = async function performEntryScripts(data) {
+    for (let i = 0; i < data.length; i++) {
+        const v = data[i];
+        if (scripts[v.split("(&?&)")[0]]) {
+            let a = await scripts[v.split("(&?&)")[0]](...parseThisArray(v.split("(&?&)").slice(1)))
+            a = await a
+        }
+    }
+}
 
 
 /***/ }),
@@ -6063,23 +6244,68 @@ module.exports = async function () {
 /***/ }),
 
 /***/ 6706:
-/***/ (() => {
+/***/ ((module) => {
 
+module.exports = function parseThisString(string) {
+    Object.keys(process.env).map((key, i) => {
+        const value = process.env[key]
 
+        if (string.toString().includes("{{" + key + "}}")) {
+            string = string.replace("{{" + key + "}}", value)
+        }
+    })
+
+    return string
+}
+
+/***/ }),
+
+/***/ 9665:
+/***/ ((module) => {
+
+module.exports = function parseThisArray(array = []) {
+    Object.keys(process.env).map((key, i) => {
+        const value = process.env[key]
+
+        array.map((val, i) => {
+            if (val.toString().includes("{{" + key + "}}")) {
+                array[i] = val.replace("{{" + key + "}}", value)
+            }
+        })
+    })
+
+    return array
+}
 
 /***/ }),
 
 /***/ 723:
-/***/ (() => {
+/***/ ((module) => {
 
+module.exports = function parseThisObject(object = {}) {
+    Object.keys(process.env).map((key, i) => {
+        const value = process.env[key]
 
+        Object.keys(object).map((v, i) => {
+            let val = object[v]
+            if (val.toString().includes("{{" + key + "}}")) {
+                object[v] = val.replace("{{" + key + "}}", value)
+            }
+        })
+    })
+
+    return object
+}
 
 /***/ }),
 
 /***/ 7512:
-/***/ (() => {
+/***/ ((module) => {
 
-
+module.exports = function parseEnvForUsers(object) {
+    object["LICENCE"] = undefined;
+    return object
+}
 
 /***/ }),
 
@@ -6255,16 +6481,53 @@ module.exports = function (text, font, color, width = undefined, horizontalLayou
 /***/ }),
 
 /***/ 1843:
-/***/ (() => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+const chalk = __nccwpck_require__(8296);
 
+module.exports = function (text) {
+    console.log("\n" + chalk.red(text) + "\n");
+}
 
 /***/ }),
 
 /***/ 2155:
-/***/ (() => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const licenceChecker = __nccwpck_require__(7854);
+const chalk = __nccwpck_require__(8296);
+const performEntryScripts = __nccwpck_require__(418);
+const custom = __nccwpck_require__(457);
+
+module.exports = async function () {
+    licenceChecker()
+    const jsonData = process.licence
+    let page = jsonData.motd
 
 
+    console.clear()
+    console.log(chalk.blue("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"));
+    console.log("\n")
+    console.log("")
+    custom(page.name, page.font, page.textColor)
+    console.log("\n")
+    console.log(chalk.blue("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"));
+    console.log(chalk.cyan("[PROJECT] This project is purchased and permitted to be used at " + jsonData.motd.name + "."));
+    console.log(chalk.cyan("[Copyright] Copyright 2022 ©️ Eggpeone"));
+    console.log(chalk.cyan("[LICENSE] By using, or running this software you accept the terms at https://eggpeone.ga/terms"));
+    console.log(chalk.cyan("[Github] https://github.com/NotRoyadma"));
+    console.log(chalk.blue("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"));
+    console.log("\n")
+    console.log("\n")
+    console.log("\n")
+
+    /*
+        If there is any scripts to run.
+    */
+    if (page.scripts && page.scripts.length != 0) {
+        await performEntryScripts(page.scripts)
+    }
+}
 
 /***/ }),
 
