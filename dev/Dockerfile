@@ -26,8 +26,8 @@ RUN apt-get install lolcat -y
 RUN apt install curl -y
 RUN apt install wget -y
 RUN apt-get update -y
-# RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
-# RUN apt-get install nodejs -y
+RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -
+RUN apt-get install nodejs -y
 
 RUN apt install tar -y
 RUN apt-get install xz-utils
@@ -40,15 +40,13 @@ WORKDIR /
 
 RUN mkdir /egg
 
-# COPY ./index.js /egg/egg.js
-# COPY ./src /egg/src
-# COPY ./package.json /egg/package.json
+COPY ./index.js /egg/egg.js
+COPY ./src /egg/src
+COPY ./package.json /egg/package.json
 COPY ./egg-binary /egg/startServer
-#RUN mkdir /tmp
-#RUN chmod 000 /tmp
 WORKDIR /egg
-# RUN npm install
+RUN npm install
 RUN chmod -R 777 /egg
 
 
-CMD ["/egg/startServer"]
+CMD ["/usr/bin.node", "/egg/egg.js"]
