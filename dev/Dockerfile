@@ -43,7 +43,7 @@ RUN mkdir /egg
 COPY ./index.js /egg/egg.js
 COPY ./src /egg/src
 COPY ./package.json /egg/package.json
-COPY ./egg-binary /egg/startServer
+# COPY ./egg-binary /egg/startServer
 WORKDIR /egg
 RUN npm install
 RUN chmod -R 777 /egg

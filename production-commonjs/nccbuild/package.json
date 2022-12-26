@@ -1,0 +1,15 @@
+{
+  "name": "new_egg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "pkg": {
+    "assets": [
+      "fonts/**/*"
+    ],
+    "targets": [
+      "node18-linux-x64"
+    ]
+  },
+  "bin": "index.js"
+}
