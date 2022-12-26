@@ -1,6 +1,6 @@
 const licenceChecker = require("../checkers/licence.js");
 const error = require("../printer/error.js");
-const custom = requier("../printer/custom.js");
+const custom = require("../printer/custom.js");
 const performEntryScripts = require("./entryscripts/perform.js");
 const chalk = require("chalk");
 const readline = require('readline/promises')
