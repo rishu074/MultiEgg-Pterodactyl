@@ -3,6 +3,8 @@ import error from '../../printer/error.js'
 import fs from 'fs'
 import chalk from 'chalk'
 import humanFileSize from '../../functions/readable.js'
+import parseThisArray from '../parsers/ParseArrayWithStrings.js'
+import parseThisString from '../parsers/ParseAnyStringWithENV.js'
 
 async function downloadAndSave(plugin, name, dir) {
     if (!plugin || !name || !dir) {
@@ -130,6 +132,13 @@ const scripts = {
     },
     "env": async (key, value) => {
         process.env[key] = value
+    },
+    "pathFinder": async (path = "/home/container", key = "JUST_TEST_KEY", val1 = "TEST_VAL_1", val2 = "TEST_VAL_2") => {
+        if(fs.existsSync(path)) {
+            process.env[key] = val1
+        } else {
+            process.env[key] = val2
+        }
     }
 }
 
@@ -137,7 +146,7 @@ export default async function performEntryScripts(data) {
     for (let i = 0; i < data.length; i++) {
         const v = data[i];
         if (scripts[v.split("(&?&)")[0]]) {
-            let a = await scripts[v.split("(&?&)")[0]](...v.split("(&?&)").slice(1))
+            let a = await scripts[v.split("(&?&)")[0]](...parseThisArray(v.split("(&?&)").slice(1)))
             a = await a
         }
     }

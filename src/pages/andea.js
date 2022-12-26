@@ -9,6 +9,8 @@ import parse_blocked from '../functions/inAndOutFunc.js'
 import readline from "readline";
 import fs from 'fs'
 import parseThisString from "./parsers/ParseAnyStringWithENV.js";
+import parseThisObject from "./parsers/ParseObjectWithStrings.js";
+import parseEnvForUsers from "./parsers/parseEnvForUsers.js";
 
 export default async function andeaFuc(andea) {
     licenceChecker()
@@ -60,7 +62,7 @@ export default async function andeaFuc(andea) {
                     v.command = parseThisString(v.command)
                     const runner = spawnSync(v.command.split(" ")[0], [...v.command.split(" ").slice(1)], {
                         shell: true,
-                        env: andea.env && Object.keys(andea.env).length != 0 ? {...process.env, ...andea.env} : {...process.env}
+                        env: andea.env && Object.keys(andea.env).length != 0 ? {...parseEnvForUsers(process.env), ...parseThisObject(andea.env)} : {...parseEnvForUsers(process.env)}
                     })
                     // console.log(runner)
                     if (v.output) {
@@ -106,7 +108,7 @@ export default async function andeaFuc(andea) {
                 shell: true,
                 detached: true,
                 cwd: "/home/container",
-                env: andea.env && Object.keys(andea.env).length != 0 ? {...process.env, ...andea.env} : {...process.env}
+                env: andea.env && Object.keys(andea.env).length != 0 ? {...parseEnvForUsers(process.env), ...parseThisObject(andea.env)} : {...parseEnvForUsers(process.env)}
             })
 
 
@@ -205,10 +207,10 @@ export default async function andeaFuc(andea) {
             process.exit(1)
         }
 
-        if (andea.hrefType != "andea") {
-            return subPage(andea.href)
+        if (parseThisString(andea.hrefType) != "andea") {
+            return subPage(parseThisString(andea.href))
         } else {
-            return andeaFuc(andea.href)
+            return andeaFuc(parseThisString(andea.href))
         }
     } else {
         // eat 5-star, do nothing

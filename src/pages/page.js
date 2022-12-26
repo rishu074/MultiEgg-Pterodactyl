@@ -106,13 +106,13 @@ export default async function () {
                 await performEntryScripts(theSelectedOption.scripts)
             }
 
-            if (theSelectedOption.type != "andea") {
+            if (parseThisString(theSelectedOption.type || "page") != "andea") {
                 rl.close()
-                subPage(theSelectedOption.href.toString())
+                subPage(parseThisString(theSelectedOption.href.toString()))
                 break;
                 return
             } else {
-                andea(theSelectedOption.href)
+                andea(parseThisString(theSelectedOption.href))
                 rl.close()
                 break;
             }

@@ -105,15 +105,15 @@ async function subPage(page) {
             if (theSelectedOption.scripts && theSelectedOption.scripts.length != 0) {
                 await performEntryScripts(theSelectedOption.scripts)
             }
-            if (theSelectedOption.type != "andea") {
+            if (parseThisString(theSelectedOption.type || "page") != "andea") {
                 rl.close()
 
-                subPage(theSelectedOption.href.toString())
+                subPage(parseThisString(theSelectedOption.href.toString()))
                 break;
                 return
             } else {
                 // andea here
-                andea(theSelectedOption.href)
+                andea(parseThisString(theSelectedOption.href))
                 rl.close()
                 break;
             }
