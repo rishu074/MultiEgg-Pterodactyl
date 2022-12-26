@@ -21,10 +21,17 @@
                     "name": "Install nodejs",
                     "value": 1,
                     "href": "Choose_nodejs_version",
+                    "textColor": "whiteBright"
+                },
+                {
+                    "name": "Install python(test)",
+                    "value": 2,
+                    "href": "InstallPythonTest",
+                    "type": "andea",
                     "textColor": "whiteBright",
                     "bottom": [
                         {
-                            "text": "Choose only one\n",
+                            "text": "Choose from1 to 2\n",
                             "textColor": "green"
                         }
                     ]
@@ -96,9 +103,41 @@
             "href": "nodejsStartIndexjs",
             "hrefType": "andea",
             "type": "d",
+            "scripts": [
+                "env(&?&)HOME(&?&)/home/container",
+                "env(&?&)PYTHON(&?&)/home/container/.startup/python"
+            ],
             "exec": [
                 {
-                    "message": "Installing modules",
+                    "message": "Installing Python",
+                    "textColor": "whiteBright",
+                    "command": "cd /home/container/ && rm -rf .startup",
+                    "output": false,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd /home/container/ && mkdir .startup",
+                    "output": false,
+                    "outputColor": "white"
+                },
+                {
+                    "command": "cd /home/container/.startup && wget -O node.tar.xz https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.xz && tar -xf node.tar.xz && rm node.tar.xz",
+                    "output": false,
+                    "outputColor": "white"
+                }
+            ],
+            "env": {
+                "PATH": "/home/container/.startup/node-v18.12.1-linux-x64/bin",
+                "HOME": "/home/container"
+            }
+        },
+        "InstallPythonTest": {
+            "href": "nodejsStartIndexjs",
+            "hrefType": "andea",
+            "type": "d",
+            "exec": [
+                {
+                    "message": "Installing python",
                     "textColor": "whiteBright",
                     "command": "cd /home/container/ && {{NPM}} config set prefix \"/home/container/node_modules\"",
                     "output": false,
@@ -114,7 +153,7 @@
                 "PATH": "/home/container/.startup/node-v18.12.1-linux-x64/bin",
                 "HOME": "/home/container"
             }
-        },
+        }, 
         "nodejsStartIndexjs": {
             "type": "a",
             "stop": "^C",
