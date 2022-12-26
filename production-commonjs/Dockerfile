@@ -21,6 +21,12 @@ RUN apt install toilet -y
 RUN apt install boxes -y
 RUN apt-get install lolcat -y
 
+# For python
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ focal main" >> /etc/apt/sources.list
+RUN apt update
+RUN apt -y build-dep python3
+RUN apt -y install gdb lcov libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev lzma lzma-dev tk-dev uuid-dev zlib1g-dev
+
 # RUN chmod -R 777 /home/container/
 
 RUN apt install curl -y
