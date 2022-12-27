@@ -6,7 +6,7 @@
         "file": "user_config.json"
     },
     "motd": {
-        "name": "DEV",
+        "name": "Developer",
         "scripts": [
             "wait(&?&)1000"
         ],
