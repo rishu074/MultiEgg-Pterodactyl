@@ -4,7 +4,6 @@ const error = require("../printer/error.js");
 const custom = require("../printer/custom.js");
 const { spawn, spawnSync } = require('child_process')
 const performEntryScripts = require("./entryscripts/perform.js");
-const subPage = require("./sub-page.js");
 const parse_blocked = require('../functions/inAndOutFunc.js')
 const fs = require('fs')
 const parseThisString = require("./parsers/ParseAnyStringWithENV.js");
@@ -29,6 +28,7 @@ async function killAndea(pid, signal) {
 module.exports = async function andeaFuc(andea) {
     licenceChecker()
     const { andeas } = process.licence
+    const subPage = require("./sub-page.js")
 
     if (!andeas[andea] || !andeas[andea].type || !andeas[andea].exec || !andeas[andea].href && andeas[andea].type != "a") {
         error("No andea found the this name or it is incorrectly configured.")
@@ -254,7 +254,6 @@ module.exports = async function andeaFuc(andea) {
             error("The `hrefType` was Not Specified.")
             process.exit(1)
         }
-
         if (parseThisString(andea.hrefType) != "andea") {
             return subPage(parseThisString(andea.href))
         } else {

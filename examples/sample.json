@@ -16,7 +16,8 @@
     "RemoveEnv": [
         "PKG_EXECPATH",
         "PYTHON_HREF",
-        "PYTHON_HREF_TYPE"
+        "PYTHON_HREF_TYPE",
+        "PYTHON_FILE"
     ],
     "pages": {
         "default": "main",
@@ -42,12 +43,12 @@
                     ],
                     "scripts": [
                         "env(&?&)HOME(&?&)/home/container",
-                        "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3",
-                        "env(&?&)PIP(&?&)/home/container/.startup/python/bin/pip3",
-                        "pathFinder(&?&)/home/container/.startup/python/bin/python3(&?&)PYTHON_HREF(&?&)PythonUserScreen(&?&)InstallPythonTest",
-                        "pathFinder(&?&)/home/container/.startup/python/bin/python3(&?&)PYTHON_HREF_TYPE(&?&)page(&?&)andea",
-                        "pathFinder(&?&)/home/container/.startup/python/bin/pip3(&?&)PYTHON_HREF(&?&)PythonUserScreen(&?&)InstallPythonTest",
-                        "pathFinder(&?&)/home/container/.startup/python/bin/pip3(&?&)PYTHON_HREF_TYPE(&?&)page(&?&)andea"
+                        "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3/bin/python3",
+                        "env(&?&)PIP(&?&)/home/container/.startup/python/bin/python3/bin/pip3",
+                        "pathFinder(&?&)/home/container/.startup/python/bin/python3/bin/python3(&?&)PYTHON_HREF(&?&)PythonUserScreen(&?&)InstallPythonTest",
+                        "pathFinder(&?&)/home/container/.startup/python/bin/python3/bin/python3(&?&)PYTHON_HREF_TYPE(&?&)page(&?&)andea",
+                        "pathFinder(&?&)/home/container/.startup/python/bin/python3/bin/pip3(&?&)PYTHON_HREF(&?&)PythonUserScreen(&?&)InstallPythonTest",
+                        "pathFinder(&?&)/home/container/.startup/python/bin/python3/bin/pip3(&?&)PYTHON_HREF_TYPE(&?&)page(&?&)andea"
                     ]
                 }
             ],
@@ -58,30 +59,17 @@
                 {
                     "name": "Install requirments.txt",
                     "value": 1,
-                    "href": "JUSTTESTSCREEN"
+                    "href": "InstallRequirmentsPython",
+                    "type": "andea"
                 },
                 {
                     "name": "Run an python file",
-                    "value": 1,
-                    "href": "JUSTTESTSCREEN",
+                    "value": 2,
+                    "type": "andea",
+                    "href": "PythonStartServer",
                     "scripts": [
-                        "type(&?&)Please type the name if your python script(&?&)PYTHON_FILE"
+                        "type(&?&)Please type the name if your python script(&?&)PYTHON_FILE(&?&)true(&?&)python_start_name"
                     ]
-                }
-            ]
-        },
-        "JUSTTESTSCREEN": {
-            "options": [
-                {
-                    "top": [
-                        {
-                            "text": "Choose any option",
-                            "textColor": "green"
-                        }
-                    ],
-                    "name": "{{JUST_ANSWER}}",
-                    "value": 1,
-                    "href": "Fuck"
                 }
             ]
         },
@@ -166,30 +154,32 @@
         "InstallRequirmentsPython": {
             "href": "PythonUserScreen",
             "type": "d",
+            "hrefType": "page",
             "exec": [
                 {
                     "message": "Installing requirments (This is a one time process, it make take few minutes.)",
                     "textColor": "whiteBright",
-                    "command": "cd /home/container/ && {{",
+                    "command": "cd /home/container/ && {{PIP}} install -r requirements.txt",
                     "output": true,
-                    "outputColor": "white"
+                    "outputColor": "whiteBright"
                 }
             ]
         },
         "InstallPythonTest": {
-            "href": "LodaB",
-            "hrefType": "andea",
+            "href": "PythonUserScreen",
+            "hrefType": "page",
             "type": "d",
             "scripts": [
                 "env(&?&)HOME(&?&)/home/container",
-                "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3"
+                "env(&?&)PYTHON(&?&)/home/container/.startup/python/bin/python3/bin/python3",
+                "env(&?&)PIP(&?&)/home/container/.startup/python/bin/python3/bin/pip3"
             ],
             "exec": [
                 {
-                    "message": "Installing Python (This is a one time process, it make take few minutes.)",
+                    "message": "Downloading Python (This is a one time process, it make take few minutes.)",
                     "textColor": "whiteBright",
                     "command": "cd /home/container/ && rm -rf .startup",
-                    "output": true,
+                    "output": false,
                     "outputColor": "white"
                 },
                 {
@@ -208,24 +198,24 @@
                     "outputColor": "white"
                 },
                 {
-                    "message": "Configuring Python",
+                    "message": "Installing Python",
                     "textColor": "whiteBright",
                     "command": "cd /home/container/.startup/Python-3.11.1 && ./configure --prefix={{PYTHON}} --enable-optimizations",
                     "output": true,
                     "outputColor": "white"
                 },
                 {
-                    "message": "Building Python",
+                    "message": "Building Python (May take few minutes...)",
                     "textColor": "whiteBright",
                     "command": "cd /home/container/.startup/Python-3.11.1 && make",
-                    "output": true,
+                    "output": false,
                     "outputColor": "white"
                 },
                 {
                     "message": "Finalizing Python",
                     "textColor": "whiteBright",
                     "command": "cd /home/container/.startup/Python-3.11.1 && make install",
-                    "output": true,
+                    "output": false,
                     "outputColor": "white"
                 }
             ]
@@ -234,7 +224,7 @@
             "type": "a",
             "stop": "SIGINT",
             "exec": {
-                "command": "cd /home/container/ && {{PYTHON}} app.py"
+                "command": "cd /home/container/ && {{PYTHON}} {{PYTHON_FILE}}"
             },
             "consoleColor": "whiteBright",
             "consoleErrorColor": "red"

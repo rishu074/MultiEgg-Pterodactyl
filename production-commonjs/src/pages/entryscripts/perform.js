@@ -56,6 +56,24 @@ async function downloadAndSave(plugin, name, dir) {
     }
 }
 
+async function AskAQuestion(question) {
+    return new Promise((resolve, reject) => {
+        const ProcessStdinListener = (data) => {
+            if (data.toString().trim() === "stop") {
+                process.exit(0)
+            }
+            // here the data is Buffer
+            process.stdin.removeListener("data", ProcessStdinListener)
+            // set the env variable
+            // process.env[envVariable] = data.toString().trim()
+
+            resolve(data.toString().trim())
+        }
+
+        process.stdin.on("data", ProcessStdinListener)
+    })
+}
+
 const scripts = {
     "clear": () => console.clear(),
     "plugin": async (plugin, name) => {
@@ -113,13 +131,13 @@ const scripts = {
         return await a
     },
     "delete": async (file, recursive) => {
-        if(!recursive) {
+        if (!recursive) {
             recursive = false
         } else {
             recursive = recursive === "true"
         }
 
-        if(recursive && !fs.existsSync(file)) return
+        if (recursive && !fs.existsSync(file)) return
 
         try {
             fs.unlinkSync(file)
@@ -133,30 +151,30 @@ const scripts = {
         process.env[key] = value
     },
     "pathFinder": async (path = "/home/container", key = "JUST_TEST_KEY", val1 = "TEST_VAL_1", val2 = "TEST_VAL_2") => {
-        if(fs.existsSync(path)) {
+        if (fs.existsSync(path)) {
             process.env[key] = val1
         } else {
             process.env[key] = val2
         }
     },
-    "type": async (question = "What is your name?", envVariable = "JUST_SOME_TEST") => {
+    "type": async (question = "What is your name?", envVariable = "JUST_SOME_TEST", useConfig = "false", config_variable = "JUST_TEST") => {
         // wrtie the question
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             process.stdout.write(Buffer.from(question + "\n"))
-    
-            const ProcessStdinListener = (data) => {
-                if(data.toString().trim() === "stop") {
-                    process.exit(0)
-                }
-                // here the data is Buffer
-                process.stdin.removeListener("data", ProcessStdinListener)
-                // set the env variable
-                process.env[envVariable] = data.toString().trim()
+            useConfig = useConfig === "true"
+            const ConfigInstance = process.ConfigInstance
 
-                resolve()
+
+            if (useConfig && ConfigInstance.getValue(config_variable)) {
+                var answer = ConfigInstance.getValue(config_variable)
+            } else {
+                var answer = await AskAQuestion(question)
+                useConfig ? ConfigInstance.setValue(config_variable, await answer) : ""
             }
-    
-            process.stdin.on("data", ProcessStdinListener)
+            
+            //set the env var 
+            process.env[envVariable] = answer.toString().trim()
+            resolve()
         })
     }
 }

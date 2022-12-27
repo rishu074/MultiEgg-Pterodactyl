@@ -12,6 +12,8 @@ const parseThisString = require("./parsers/ParseAnyStringWithENV.js");
 module.exports = async function () {
     licenceChecker()
 
+    process.sub_page = subPage
+
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
     if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].options || pages[pages.default].options.length === 0) {
@@ -108,12 +110,12 @@ module.exports = async function () {
 
             if (parseThisString(theSelectedOption.type || "page") != "andea") {
                 rl.close()
-                subPage(parseThisString(theSelectedOption.href.toString()))
+                return subPage(parseThisString(theSelectedOption.href.toString()))
                 break;
                 return
             } else {
-                andea(parseThisString(theSelectedOption.href))
                 rl.close()
+                return andea(parseThisString(theSelectedOption.href))
                 break;
             }
         } else {

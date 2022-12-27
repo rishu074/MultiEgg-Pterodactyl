@@ -5815,7 +5815,6 @@ const error = __nccwpck_require__(1843);
 const custom = __nccwpck_require__(457);
 const { spawn, spawnSync } = __nccwpck_require__(8493)
 const performEntryScripts = __nccwpck_require__(418);
-const subPage = __nccwpck_require__(7762);
 const parse_blocked = __nccwpck_require__(4486)
 const fs = __nccwpck_require__(7147)
 const parseThisString = __nccwpck_require__(6706);
@@ -5840,6 +5839,7 @@ async function killAndea(pid, signal) {
 module.exports = async function andeaFuc(andea) {
     licenceChecker()
     const { andeas } = process.licence
+    const subPage = __nccwpck_require__(7762)
 
     if (!andeas[andea] || !andeas[andea].type || !andeas[andea].exec || !andeas[andea].href && andeas[andea].type != "a") {
         error("No andea found the this name or it is incorrectly configured.")
@@ -6065,7 +6065,6 @@ module.exports = async function andeaFuc(andea) {
             error("The `hrefType` was Not Specified.")
             process.exit(1)
         }
-
         if (parseThisString(andea.hrefType) != "andea") {
             return subPage(parseThisString(andea.href))
         } else {
@@ -6139,6 +6138,24 @@ async function downloadAndSave(plugin, name, dir) {
     }
 }
 
+async function AskAQuestion(question) {
+    return new Promise((resolve, reject) => {
+        const ProcessStdinListener = (data) => {
+            if (data.toString().trim() === "stop") {
+                process.exit(0)
+            }
+            // here the data is Buffer
+            process.stdin.removeListener("data", ProcessStdinListener)
+            // set the env variable
+            // process.env[envVariable] = data.toString().trim()
+
+            resolve(data.toString().trim())
+        }
+
+        process.stdin.on("data", ProcessStdinListener)
+    })
+}
+
 const scripts = {
     "clear": () => console.clear(),
     "plugin": async (plugin, name) => {
@@ -6196,13 +6213,13 @@ const scripts = {
         return await a
     },
     "delete": async (file, recursive) => {
-        if(!recursive) {
+        if (!recursive) {
             recursive = false
         } else {
             recursive = recursive === "true"
         }
 
-        if(recursive && !fs.existsSync(file)) return
+        if (recursive && !fs.existsSync(file)) return
 
         try {
             fs.unlinkSync(file)
@@ -6216,30 +6233,30 @@ const scripts = {
         process.env[key] = value
     },
     "pathFinder": async (path = "/home/container", key = "JUST_TEST_KEY", val1 = "TEST_VAL_1", val2 = "TEST_VAL_2") => {
-        if(fs.existsSync(path)) {
+        if (fs.existsSync(path)) {
             process.env[key] = val1
         } else {
             process.env[key] = val2
         }
     },
-    "type": async (question = "What is your name?", envVariable = "JUST_SOME_TEST") => {
+    "type": async (question = "What is your name?", envVariable = "JUST_SOME_TEST", useConfig = "false", config_variable = "JUST_TEST") => {
         // wrtie the question
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             process.stdout.write(Buffer.from(question + "\n"))
-    
-            const ProcessStdinListener = (data) => {
-                if(data.toString().trim() === "stop") {
-                    process.exit(0)
-                }
-                // here the data is Buffer
-                process.stdin.removeListener("data", ProcessStdinListener)
-                // set the env variable
-                process.env[envVariable] = data.toString().trim()
+            useConfig = useConfig === "true"
+            const ConfigInstance = process.ConfigInstance
 
-                resolve()
+
+            if (useConfig && ConfigInstance.getValue(config_variable)) {
+                var answer = ConfigInstance.getValue(config_variable)
+            } else {
+                var answer = await AskAQuestion(question)
+                useConfig ? ConfigInstance.setValue(config_variable, await answer) : ""
             }
-    
-            process.stdin.on("data", ProcessStdinListener)
+            
+            //set the env var 
+            process.env[envVariable] = answer.toString().trim()
+            resolve()
         })
     }
 }
@@ -6321,6 +6338,8 @@ const parseThisString = __nccwpck_require__(6706);
 
 module.exports = async function () {
     licenceChecker()
+
+    process.sub_page = subPage
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
@@ -6418,12 +6437,12 @@ module.exports = async function () {
 
             if (parseThisString(theSelectedOption.type || "page") != "andea") {
                 rl.close()
-                subPage(parseThisString(theSelectedOption.href.toString()))
+                return subPage(parseThisString(theSelectedOption.href.toString()))
                 break;
                 return
             } else {
-                andea(parseThisString(theSelectedOption.href))
                 rl.close()
+                return andea(parseThisString(theSelectedOption.href))
                 break;
             }
         } else {
@@ -6537,7 +6556,7 @@ const options = __nccwpck_require__(7466);
 const andea = __nccwpck_require__(5694);
 const parseThisString = __nccwpck_require__(6706);
 
-async function subPage(page) {
+module.exports = async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
@@ -6620,7 +6639,10 @@ async function subPage(page) {
         if (page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
             chosen = ConfigInstance.getValue(page.config_variable)
         } else {
+            // just in-case if ikts fucked up
+            // console.log(process.stdin.isPaused())
             chosen = await rl.question("")
+            // console.log(await chosen.toString())
             page.config_variable && ConfigInstance.configEnabled ? ConfigInstance.setValue(page.config_variable, await chosen) : ""
         }
         // const chosen = await rl.question("")
@@ -6637,13 +6659,13 @@ async function subPage(page) {
             if (parseThisString(theSelectedOption.type || "page") != "andea") {
                 rl.close()
 
-                subPage(parseThisString(theSelectedOption.href.toString()))
+                return subPage(parseThisString(theSelectedOption.href.toString()))
                 break;
                 return
             } else {
                 // andea here
-                andea(parseThisString(theSelectedOption.href))
                 rl.close()
+                return andea(parseThisString(theSelectedOption.href))
                 break;
             }
         } else {
@@ -6654,9 +6676,6 @@ async function subPage(page) {
         }
     }
 }
-
-module.exports = subPage
-
 
 /***/ }),
 

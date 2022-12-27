@@ -8,7 +8,7 @@ const options = require("./option.js");
 const andea = require("./andea.js");
 const parseThisString = require("./parsers/ParseAnyStringWithENV.js");
 
-async function subPage(page) {
+module.exports = async function subPage(page) {
     licenceChecker()
 
     const { pages } = process.licence
@@ -91,7 +91,10 @@ async function subPage(page) {
         if (page.config_variable && ConfigInstance.configEnabled && ConfigInstance.getValue(page.config_variable) && validOptions[ConfigInstance.getValue(page.config_variable)]) {
             chosen = ConfigInstance.getValue(page.config_variable)
         } else {
+            // just in-case if ikts fucked up
+            // console.log(process.stdin.isPaused())
             chosen = await rl.question("")
+            // console.log(await chosen.toString())
             page.config_variable && ConfigInstance.configEnabled ? ConfigInstance.setValue(page.config_variable, await chosen) : ""
         }
         // const chosen = await rl.question("")
@@ -108,13 +111,13 @@ async function subPage(page) {
             if (parseThisString(theSelectedOption.type || "page") != "andea") {
                 rl.close()
 
-                subPage(parseThisString(theSelectedOption.href.toString()))
+                return subPage(parseThisString(theSelectedOption.href.toString()))
                 break;
                 return
             } else {
                 // andea here
-                andea(parseThisString(theSelectedOption.href))
                 rl.close()
+                return andea(parseThisString(theSelectedOption.href))
                 break;
             }
         } else {
@@ -125,5 +128,3 @@ async function subPage(page) {
         }
     }
 }
-
-module.exports = subPage
