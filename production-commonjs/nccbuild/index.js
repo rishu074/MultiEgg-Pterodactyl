@@ -6221,6 +6221,26 @@ const scripts = {
         } else {
             process.env[key] = val2
         }
+    },
+    "type": async (question = "What is your name?", envVariable = "JUST_SOME_TEST") => {
+        // wrtie the question
+        return new Promise((resolve, reject) => {
+            process.stdout.write(Buffer.from(question + "\n"))
+    
+            const ProcessStdinListener = (data) => {
+                if(data.toString().trim() === "stop") {
+                    process.exit(0)
+                }
+                // here the data is Buffer
+                process.stdin.removeListener("data", ProcessStdinListener)
+                // set the env variable
+                process.env[envVariable] = data.toString().trim()
+
+                resolve()
+            }
+    
+            process.stdin.on("data", ProcessStdinListener)
+        })
     }
 }
 
