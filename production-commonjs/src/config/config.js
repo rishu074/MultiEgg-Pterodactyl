@@ -37,7 +37,11 @@ module.exports = class Config extends events {
             this.config = { "uuid": process.env.P_SERVER_UUID }
         } else {
             this.fileExists = true
-            this.config = JSON.parse(fs.readFileSync(config.path + "/" + config.file))
+            try {
+                this.config = JSON.parse(fs.readFileSync(config.path + "/" + config.file))
+            } catch (er) {
+                error(`Please delete the ${config.file}, in order to start the server`)
+            }
         }
         this.emit("load", this.config)
         this.configEnabled = true
