@@ -252,7 +252,7 @@ const scripts = {
             let hash = crypto.createHash("sha512")
             try {
                 let new_checksum = await getDirChecksum(FOLDER, hash)
-                
+
                 if(new_checksum.digest("hex") === OLD_CHECKSUM) {
                     process.env[ENV] = IF_YES
                 } else {
@@ -264,6 +264,9 @@ const scripts = {
             }
             return resolve()
         })
+    },
+    "print": async (VAR) => {
+        console.log("Eggpeone >> " + process.env[VAR])
     }
 }
 
