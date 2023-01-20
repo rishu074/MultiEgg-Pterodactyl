@@ -1,7 +1,7 @@
 const crypto = require("crypto")
 const fs = require("fs")
 
-const FILE = "./server"
+const FILE = "./hello"
 const OLD_CHECKSUM = "20ed231b7cfbdc3670ff0a14c8f67df316c23c5f8b38f07a56666b37c93ff369be4854c7e55103b674b3249b153e1f7d68547faeea2ea22f528037e198f9cb5a"
 
 async function getFileHash(path, hash) {
@@ -54,7 +54,7 @@ async function hell() {
     let stat = fs.lstatSync(FILE)
     if(stat.isDirectory()) {
         fullhash = await getDirChecksum(FILE, hash)
-        return console.log(fullhash.digest("hex") === OLD_CHECKSUM)
+        return console.log(fullhash.digest("hex"))
     }
 
     // const stream = fs.createReadStream(FILE)

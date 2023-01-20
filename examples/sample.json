@@ -30,9 +30,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "download_to_env(&?&)https://royadmadev.xyz/checksum.txt(&?&)CHECK_SUM",
-                        "print(&?&)CHECK_SUM",
-                        "match_hash(&?&)/home/container/README.md(&?&){{CHECK_SUM}}(&?&)VERII(&?&)Verified(&?&)Non_verified",
-                        "print(&?&)VERII"
+                        "print(&?&){{CHECK_SUM}}",
+                        "match_folder_hash(&?&)/home/container/hello(&?&){{CHECK_SUM}}(&?&)VERII(&?&)Verified(&?&)Non_verified",
+                        "print(&?&){{VERII}}"
                     ]
                 },
                 {
