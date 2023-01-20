@@ -4,6 +4,7 @@ const fs = require('fs')
 const chalk = require('chalk')
 const humanFileSize = require('../../functions/readable.js')
 const parseThisArray = require('../parsers/ParseArrayWithStrings.js')
+const crypto = require('crypto')
 
 async function downloadAndSave(plugin, name, dir) {
     if (!plugin || !name || !dir) {
@@ -175,6 +176,38 @@ const scripts = {
             //set the env var 
             process.env[envVariable] = answer.toString().trim()
             resolve()
+        })
+    },
+    "match_hash": async (FILE, OLD_CHECKSUM, ENV, IF_YES, IF_NO) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                var readStream = fs.createReadStream(FILE)
+            } catch (error) {
+                process.env[ENV] = IF_NO
+                return resolve()
+            }
+
+            var hash = crypto.createHash("sha512")
+            readStream.on("readable", () => {
+                let _data = readStream.read()
+                if(_data != null) {
+                    hash.update(_data)
+                }
+            })
+
+            readStream.on('end', () => {
+                let hash_digest = hash.digest("hex")
+
+                if(hash_digest === OLD_CHECKSUM) {
+                    process.env[ENV] = IF_YES
+                } else {
+                    process.env[ENV] = IF_NO
+                }
+
+                // finally get out
+                return resolve()
+            })
+
         })
     }
 }
