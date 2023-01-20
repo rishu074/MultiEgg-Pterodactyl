@@ -1,2 +1,2 @@
-ncc v0.36.0
+@vercel/ncc v0.36.0
 pkg v5.8.0
