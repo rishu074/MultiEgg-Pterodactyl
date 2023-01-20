@@ -6352,7 +6352,7 @@ const scripts = {
         })
     },
     "print": async (VAR) => {
-        console.log("Eggpeone >> " + process.env[VAR])
+        console.log(chalk.yellowBright("[Eggpeone]:"), chalk.whiteBright(process.env[VAR]))
     },
     "download_to_env": async (link, env) => {
         try {
