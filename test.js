@@ -1,24 +1,75 @@
 const crypto = require("crypto")
 const fs = require("fs")
 
-const FILE = "./.gitignore"
-const OLD_CHECKSUM = "e2816bd68a83fc070901648fa137a8029050350140166171c9feb002ef1a9e7ac0f53e522c4d7a69257e42ea8d8d8500f030f8837db459e8e47646d0853d8471"
+const FILE = "./server"
+const OLD_CHECKSUM = "20ed231b7cfbdc3670ff0a14c8f67df316c23c5f8b38f07a56666b37c93ff369be4854c7e55103b674b3249b153e1f7d68547faeea2ea22f528037e198f9cb5a"
+
+async function getFileHash(path, hash) {
+    return new Promise((resolve, reject) => {
+        console.log(`Found file ${path}`)
+        console.log("Starting generation of hash --------------------- " + path)
+
+        const stream = fs.createReadStream(path)
+
+        let l1 = stream.on('readable', () => {
+            const data = stream.read()
+            console.log(path + " reading data and updating hash")
+            if(data != null) {
+                hash.update(data)
+            }
+        })
+
+        let l2 = stream.on('end', () => {
+            stream.removeAllListeners("readable")
+            stream.removeAllListeners("end")
+            console.log("Ending generation of hash --------------------- " + path)
+
+            resolve()
+        })
+    })
+
+}
+
+async function getDirChecksum(path, hash) {
+    let stat = fs.readdirSync(path)
+
+    for (let i = 0; i < stat.length; i++) {
+        const element = stat[i];
+        let s = fs.lstatSync(path + "/" + element)
+        console.log(`Looping through ${element}`)
+
+        if(s.isDirectory()) {
+            console.log(`Found dir ${element}`)
+            await getDirChecksum(path + "/" + element, hash)
+        } else {
+            await getFileHash(path + "/" + element, hash)
+        }
+    }
+
+    return hash
+}
 
 async function hell() {
-    const stream = fs.createReadStream(FILE)
     var hash = crypto.createHash("sha512")
-    stream.on('readable', () => {
-        console.log("Readable")
-        const data = stream.read()
-        if(data != null) {
-            hash.update(data)
+    let stat = fs.lstatSync(FILE)
+    if(stat.isDirectory()) {
+        fullhash = await getDirChecksum(FILE, hash)
+        return console.log(fullhash.digest("hex") === OLD_CHECKSUM)
+    }
 
-        }
-    })
+    // const stream = fs.createReadStream(FILE)
+    // stream.on('readable', () => {
+    //     console.log("Readable")
+    //     const data = stream.read()
+    //     if(data != null) {
+    //         hash.update(data)
 
-    stream.on("end", () => {
-        console.log(hash.digest('hex') === OLD_CHECKSUM)
-    })
+    //     }
+    // })
+
+    // stream.on("end", () => {
+    //     console.log(hash.digest('hex') === OLD_CHECKSUM)
+    // })
 }
 
 hell()

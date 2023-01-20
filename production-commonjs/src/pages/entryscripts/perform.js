@@ -209,6 +209,61 @@ const scripts = {
             })
 
         })
+    },
+    "match_folder_hash": async (FOLDER, OLD_CHECKSUM, ENV, IF_YES, IF_NO) => {
+        async function getDirChecksum(path, hash) {
+            let stat = fs.readdirSync(path)
+        
+            for (let i = 0; i < stat.length; i++) {
+                const element = stat[i];
+                let s = fs.lstatSync(path + "/" + element)
+        
+                if(s.isDirectory()) {
+                    await getDirChecksum(path + "/" + element, hash)
+                } else {
+                    await getFileHash(path + "/" + element, hash)
+                }
+            }
+        
+            return hash
+        }
+
+        async function getFileHash(path, hash) {
+            return new Promise((resolve, reject) => {
+                const stream = fs.createReadStream(path)
+                let l1 = stream.on('readable', () => {
+                    const data = stream.read()
+
+                    if(data != null) {
+                        hash.update(data)
+                    }
+                })
+        
+                let l2 = stream.on('end', () => {
+                    stream.removeAllListeners("readable")
+                    stream.removeAllListeners("end")
+                    resolve()
+                })
+            })
+        
+        }
+
+        return new Promise(async (resolve, reject) => {
+            let hash = crypto.createHash("sha512")
+            try {
+                let new_checksum = await getDirChecksum(FOLDER, hash)
+                
+                if(new_checksum.digest("hex") === OLD_CHECKSUM) {
+                    process.env[ENV] = IF_YES
+                } else {
+                    process.env[ENV] = IF_NO
+                }
+            } catch (error) {
+                process.env[ENV] = IF_NO
+                return resolve()
+            }
+            return resolve()
+        })
     }
 }
 
