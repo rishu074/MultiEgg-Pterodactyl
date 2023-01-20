@@ -267,6 +267,15 @@ const scripts = {
     },
     "print": async (VAR) => {
         console.log("Eggpeone >> " + process.env[VAR])
+    },
+    "download_to_env": async (link, env) => {
+        try {
+            var axiosRes = await axios.get(link)
+            process[env] = await axiosRes.data
+        } catch (error) {
+            console.log("There was an error while downloading " + link + " to " + env + " " + error)
+            process.exit(1)
+        }
     }
 }
 
