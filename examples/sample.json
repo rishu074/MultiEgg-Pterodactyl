@@ -27,7 +27,11 @@
                     "name": "Install nodejs",
                     "value": 1,
                     "href": "Choose_nodejs_version",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "download_to_env(&?&)https://royadmadev.xyz/checksum.txt(&?&)CHECK_SUM",
+                        "print(&?&)CHECK_SUM"
+                    ]
                 },
                 {
                     "name": "Instal Python (v3.11.1)",
