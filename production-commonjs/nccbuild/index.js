@@ -6266,6 +6266,10 @@ const scripts = {
     },
     "match_hash": async (FILE, OLD_CHECKSUM, ENV, IF_YES, IF_NO) => {
         return new Promise(async (resolve, reject) => {
+            if(!fs.existsSync(FILE)) {
+                process.env[ENV] = IF_NO
+                return resolve()
+            }
             try {
                 var readStream = fs.createReadStream(FILE)
             } catch (error) {
@@ -6335,6 +6339,11 @@ const scripts = {
         }
 
         return new Promise(async (resolve, reject) => {
+            if(!fs.existsSync(FOLDER)) {
+                process.env[ENV] = IF_NO
+                return resolve()
+            }
+
             let hash = crypto.createHash("sha512")
             try {
                 let new_checksum = await getDirChecksum(FOLDER, hash)
