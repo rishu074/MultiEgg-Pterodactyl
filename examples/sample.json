@@ -30,7 +30,8 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "download_to_env(&?&)https://royadmadev.xyz/checksum.txt(&?&)CHECK_SUM",
-                        "print(&?&)CHECK_SUM"
+                        "print(&?&)CHECK_SUM",
+                        "match_hash"
                     ]
                 },
                 {
