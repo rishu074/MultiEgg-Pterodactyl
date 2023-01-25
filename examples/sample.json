@@ -17,7 +17,9 @@
         "PKG_EXECPATH",
         "PYTHON_HREF",
         "PYTHON_HREF_TYPE",
-        "PYTHON_FILE"
+        "PYTHON_FILE",
+        "E_DL",
+        "E_VERSION"
     ],
     "pages": {
         "default": "main",
@@ -209,86 +211,128 @@
                 {
                     "name": "Paper 1.19.3 (Stable)",
                     "value": 1,
-                    "href": "just_test",
+                    "href": "Minecraft_Java_check_jar",
                     "textColor": "whiteBright",
                     "top": [
                         {
                             "text": "\nChoose something between 1-12",
                             "textColor": "yellowBright"
                         }
+                    ],
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19.3",
+                        "env(&?&)E_VERSION(&?&)1.19.3"
                     ]
                 },
                 {
                     "name": "Paper 1.19.2 (Stable)",
                     "value": 2,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19.2",
+                        "env(&?&)E_VERSION(&?&)1.19.2"
+                    ]
                 },
                 {
                     "name": "Paper 1.19.1 (Stable)",
                     "value": 3,
                     "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Paper 1.19.1 (Stable)",
-                    "value": 3,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19.1",
+                        "env(&?&)E_VERSION(&?&)1.19.1"
+                    ]
                 },
                 {
                     "name": "Paper 1.19 (Stable)",
                     "value": 4,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19",
+                        "env(&?&)E_VERSION(&?&)1.19"
+                    ]
                 },
                 {
                     "name": "Paper 1.18.2 (Stable)",
                     "value": 5,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.18.2",
+                        "env(&?&)E_VERSION(&?&)1.18.2"
+                    ]
                 },
                 {
                     "name": "Paper 1.18.1 (Stable)",
                     "value": 6,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.18.1",
+                        "env(&?&)E_VERSION(&?&)1.18.1"
+                    ]
                 },
                 {
                     "name": "Paper 1.18 (Stable)",
                     "value": 7,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.18",
+                        "env(&?&)E_VERSION(&?&)1.18"
+                    ]
                 },
                 {
                     "name": "Paper 1.17.1 (Stable)",
                     "value": 8,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.17.1",
+                        "env(&?&)E_VERSION(&?&)1.17.1"
+                    ]
                 },
                 {
                     "name": "Paper 1.17 (Stable)",
                     "value": 9,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.17",
+                        "env(&?&)E_VERSION(&?&)1.17"
+                    ]
                 },
                 {
                     "name": "Paper 1.16.5 (Stable)",
                     "value": 10,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.16.5",
+                        "env(&?&)E_VERSION(&?&)1.16.5"
+                    ]
                 },
                 {
                     "name": "Paper 1.12.2 (Stable)",
                     "value": 11,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.12.2",
+                        "env(&?&)E_VERSION(&?&)1.12.2"
+                    ]
                 },
                 {
                     "name": "Paper 1.8.8 (Stable)",
                     "value": 12,
                     "href": "just_test",
-                    "textColor": "whiteBright"
+                    "textColor": "whiteBright",
+                    "scripts": [
+                        "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.8.8",
+                        "env(&?&)E_VERSION(&?&)1.8.8"
+                    ]
                 }
             ],
             "config_variable": "minecraft_java_paper_selected"
@@ -522,6 +566,13 @@
                 }
             ],
             "config_variable": "minecraft_java_Sponge_selected"
+        },
+        "Minecraft_Java_check_jar": {
+            "options": [],
+            "scripts": [
+                "print(&?&)Hello, asshole"
+            ],
+            "href": "Minecraft_Java_Screen_Paper"
         },
         "PythonUserScreen": {
             "options": [

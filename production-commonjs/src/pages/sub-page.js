@@ -13,7 +13,7 @@ module.exports = async function subPage(page) {
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
-    if (!pages || !pages.default || !pages[page] || !pages[page].options || pages[page].options.length === 0) {
+    if (!pages || !pages.default || !pages[page] || !pages[page].options) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -84,6 +84,16 @@ module.exports = async function subPage(page) {
                 console.log(parseThisString(chalk.cyanBright(bottom.text)))
             }
         })
+    }
+
+    if(page.href) {
+        if (parseThisString(page.hrefType || "page") != "andea") {
+            rl.close()
+            return subPage(parseThisString(page.href.toString()))
+        } else {
+            rl.close()
+            return andea(parseThisString(page.href))
+        }
     }
 
     while (true) {

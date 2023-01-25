@@ -16,7 +16,7 @@ module.exports = async function () {
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
-    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].options || pages[pages.default].options.length === 0) {
+    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].options) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -83,6 +83,16 @@ module.exports = async function () {
                 console.log(parseThisString(chalk.cyanBright(bottom.text)))
             }
         })
+    }
+
+    if(page.href) {
+        if (parseThisString(page.hrefType || "page") != "andea") {
+            rl.close()
+            return subPage(parseThisString(page.href.toString()))
+        } else {
+            rl.close()
+            return andea(parseThisString(page.href))
+        }
     }
 
     while (true) {
