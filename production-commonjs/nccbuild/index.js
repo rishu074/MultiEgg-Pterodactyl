@@ -5785,7 +5785,7 @@ module.exports = async function initLicence() {
         process.exit(1)
     }
 
-    const url = "https://royadmadev.xyz/" + licenceURL + ".json"
+    const url = "https://admin.dnxrg.com/file/licenses/" + licenceURL + ".json"
 
     // fetch the licence
     let licenceResponse
