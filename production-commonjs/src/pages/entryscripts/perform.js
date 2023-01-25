@@ -277,6 +277,9 @@ const scripts = {
     "print": async (VAR) => {
         console.log(chalk.yellowBright("[Eggpeone]:"), chalk.whiteBright(VAR))
     },
+    "exit": async (code=0) => {
+        process.exit(parseInt(code))
+    },
     "download_to_env": async (link, env) => {
         try {
             var axiosRes = await axios.get(link)
