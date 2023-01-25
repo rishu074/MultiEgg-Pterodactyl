@@ -85,31 +85,31 @@
                 {
                     "name": "Paper (1.8.8-1.19.3)",
                     "value": 2,
-                    "href": "just_test",
+                    "href": "Minecraft_Java_Screen_Paper",
                     "textColor": "whiteBright"
                 },
                 {
                     "name": "Spigot (1.8.8-1.19.3)",
                     "value": 3,
-                    "href": "just_test",
+                    "href": "Minecraft_Java_Screen_Spigot",
                     "textColor": "whiteBright"
                 },
                 {
                     "name": "Purpur (1.8.8-1.19.3)",
                     "value": 4,
-                    "href": "just_test",
+                    "href": "Minecraft_Java_Screen_Purpur",
                     "textColor": "whiteBright"
                 },
                 {
                     "name": "Tuinity (1.8.8-1.17.1)",
                     "value": 5,
-                    "href": "just_test",
+                    "href": "Minecraft_Java_Screen_Tuinity",
                     "textColor": "whiteBright"
                 },
                 {
                     "name": "Sponge (1.8.9-1.12.2)",
                     "value": 6,
-                    "href": "just_test",
+                    "href": "Minecraft_Java_Screen_Sponge",
                     "textColor": "whiteBright"
                 }
             ],
@@ -385,7 +385,7 @@
         "Minecraft_Java_Screen_Purpur": {
             "options": [
                 {
-                    "name": "Purpur 1.19.3 (Unstable)",
+                    "name": "Purpur 1.19.3 (Stable)",
                     "value": 1,
                     "href": "just_test",
                     "textColor": "whiteBright",
@@ -397,37 +397,37 @@
                     ]
                 },
                 {
-                    "name": "Purpur 1.19.2 (Unstable)",
+                    "name": "Purpur 1.19.2 (Stable)",
                     "value": 2,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.19.1 (Unstable)",
+                    "name": "Purpur 1.19.1 (Stable)",
                     "value": 3,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.19.1 (Unstable)",
+                    "name": "Purpur 1.19.1 (Stable)",
                     "value": 3,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.19 (Unstable)",
+                    "name": "Purpur 1.19 (Stable)",
                     "value": 4,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.18.2 (Unstable)",
+                    "name": "Purpur 1.18.2 (Stable)",
                     "value": 5,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.18.1 (Unstable)",
+                    "name": "Purpur 1.18.1 (Stable)",
                     "value": 6,
                     "href": "just_test",
                     "textColor": "whiteBright"
@@ -439,7 +439,7 @@
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.17.1 (Unstable)",
+                    "name": "Purpur 1.17.1 (Stable)",
                     "value": 8,
                     "href": "just_test",
                     "textColor": "whiteBright"
@@ -451,19 +451,19 @@
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.16.5 (Unstable)",
+                    "name": "Purpur 1.16.5 (Stable)",
                     "value": 10,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.12.2 (Unstable)",
+                    "name": "Purpur 1.12.2 (Stable)",
                     "value": 11,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Purpur 1.8.8 (Unstable)",
+                    "name": "Purpur 1.8.8 (Stable)",
                     "value": 12,
                     "href": "just_test",
                     "textColor": "whiteBright"
@@ -474,180 +474,54 @@
         "Minecraft_Java_Screen_Tuinity": {
             "options": [
                 {
-                    "name": "Bukkit 1.19.3 (Unstable)",
+                    "name": "uinity 1.17.1 (Stable)",
                     "value": 1,
                     "href": "just_test",
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\nChoose something between 1-12",
+                            "text": "\nChoose something between 1-3",
                             "textColor": "yellowBright"
                         }
                     ]
                 },
                 {
-                    "name": "Bukkit 1.19.2 (Unstable)",
+                    "name": "Tuinity 1.17 (Stable)",
                     "value": 2,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 },
                 {
-                    "name": "Bukkit 1.19.1 (Unstable)",
+                    "name": "Tuinity 1.16.5 (Stable)",
                     "value": 3,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.19.1 (Unstable)",
-                    "value": 3,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.19 (Unstable)",
-                    "value": 4,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.18.2 (Unstable)",
-                    "value": 5,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.18.1 (Unstable)",
-                    "value": 6,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.18 (Stable)",
-                    "value": 7,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.17.1 (Unstable)",
-                    "value": 8,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.17 (Stable)",
-                    "value": 9,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.16.5 (Unstable)",
-                    "value": 10,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.12.2 (Unstable)",
-                    "value": 11,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.8.8 (Unstable)",
-                    "value": 12,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 }
             ],
-            "config_variable": "minecraft_java_bukkit_selected"
+            "config_variable": "minecraft_java_Tuinity_selected"
         },
         "Minecraft_Java_Screen_Sponge": {
             "options": [
                 {
-                    "name": "Bukkit 1.19.3 (Unstable)",
+                    "name": "Sponge 1.12.2 (Snapshot)",
                     "value": 1,
                     "href": "just_test",
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\nChoose something between 1-12",
+                            "text": "\nChoose something between 1-2",
                             "textColor": "yellowBright"
                         }
                     ]
                 },
                 {
-                    "name": "Bukkit 1.19.2 (Unstable)",
+                    "name": "Sponge 1.8.9 (Snapshot)",
                     "value": 2,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.19.1 (Unstable)",
-                    "value": 3,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.19.1 (Unstable)",
-                    "value": 3,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.19 (Unstable)",
-                    "value": 4,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.18.2 (Unstable)",
-                    "value": 5,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.18.1 (Unstable)",
-                    "value": 6,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.18 (Stable)",
-                    "value": 7,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.17.1 (Unstable)",
-                    "value": 8,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.17 (Stable)",
-                    "value": 9,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.16.5 (Unstable)",
-                    "value": 10,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.12.2 (Unstable)",
-                    "value": 11,
-                    "href": "just_test",
-                    "textColor": "whiteBright"
-                },
-                {
-                    "name": "Bukkit 1.8.8 (Unstable)",
-                    "value": 12,
                     "href": "just_test",
                     "textColor": "whiteBright"
                 }
             ],
-            "config_variable": "minecraft_java_bukkit_selected"
+            "config_variable": "minecraft_java_Sponge_selected"
         },
         "PythonUserScreen": {
             "options": [
