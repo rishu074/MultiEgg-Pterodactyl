@@ -6258,7 +6258,7 @@ const scripts = {
                 var answer = await AskAQuestion(question)
                 useConfig ? ConfigInstance.setValue(config_variable, await answer) : ""
             }
-            
+
             //set the env var 
             process.env[envVariable] = answer.toString().trim()
             resolve()
@@ -6266,7 +6266,7 @@ const scripts = {
     },
     "match_hash": async (FILE, OLD_CHECKSUM, ENV, IF_YES, IF_NO) => {
         return new Promise(async (resolve, reject) => {
-            if(!fs.existsSync(FILE)) {
+            if (!fs.existsSync(FILE)) {
                 process.env[ENV] = IF_NO
                 return resolve()
             }
@@ -6280,7 +6280,7 @@ const scripts = {
             var hash = crypto.createHash("sha512")
             readStream.on("readable", () => {
                 let _data = readStream.read()
-                if(_data != null) {
+                if (_data != null) {
                     hash.update(_data)
                 }
             })
@@ -6288,7 +6288,7 @@ const scripts = {
             readStream.on('end', () => {
                 let hash_digest = hash.digest("hex")
 
-                if(hash_digest === OLD_CHECKSUM) {
+                if (hash_digest === OLD_CHECKSUM) {
                     process.env[ENV] = IF_YES
                 } else {
                     process.env[ENV] = IF_NO
@@ -6303,18 +6303,18 @@ const scripts = {
     "match_folder_hash": async (FOLDER, OLD_CHECKSUM, ENV, IF_YES, IF_NO) => {
         async function getDirChecksum(path, hash) {
             let stat = fs.readdirSync(path)
-        
+
             for (let i = 0; i < stat.length; i++) {
                 const element = stat[i];
                 let s = fs.lstatSync(path + "/" + element)
-        
-                if(s.isDirectory()) {
+
+                if (s.isDirectory()) {
                     await getDirChecksum(path + "/" + element, hash)
                 } else {
                     await getFileHash(path + "/" + element, hash)
                 }
             }
-        
+
             return hash
         }
 
@@ -6324,22 +6324,22 @@ const scripts = {
                 let l1 = stream.on('readable', () => {
                     const data = stream.read()
 
-                    if(data != null) {
+                    if (data != null) {
                         hash.update(data)
                     }
                 })
-        
+
                 let l2 = stream.on('end', () => {
                     stream.removeAllListeners("readable")
                     stream.removeAllListeners("end")
                     resolve()
                 })
             })
-        
+
         }
 
         return new Promise(async (resolve, reject) => {
-            if(!fs.existsSync(FOLDER)) {
+            if (!fs.existsSync(FOLDER)) {
                 process.env[ENV] = IF_NO
                 return resolve()
             }
@@ -6348,7 +6348,7 @@ const scripts = {
             try {
                 let new_checksum = await getDirChecksum(FOLDER, hash)
 
-                if(new_checksum.digest("hex") === OLD_CHECKSUM) {
+                if (new_checksum.digest("hex") === OLD_CHECKSUM) {
                     process.env[ENV] = IF_YES
                 } else {
                     process.env[ENV] = IF_NO
@@ -6363,7 +6363,7 @@ const scripts = {
     "print": async (VAR) => {
         console.log(chalk.yellowBright("[Eggpeone]:"), chalk.whiteBright(VAR))
     },
-    "exit": async (code=0) => {
+    "exit": async (code = 0) => {
         process.exit(parseInt(code))
     },
     "download_to_env": async (link, env) => {
@@ -6374,6 +6374,54 @@ const scripts = {
             console.log("There was an error while downloading " + link + " to " + env + " " + error)
             process.exit(1)
         }
+    },
+    "download_file_check_hash": async (download_link, checksum, filename, dir) => {
+        const CheckFile = async (FILE, OLD_CHECKSUM) => {
+            return new Promise(async (resolve, reject) => {
+                if (!fs.existsSync(FILE)) {
+                    return resolve(false)
+                }
+                try {
+                    var readStream = fs.createReadStream(FILE)
+                } catch (error) {
+                    return resolve(false)
+                }
+
+                var hash = crypto.createHash("sha512")
+                readStream.on("readable", () => {
+                    let _data = readStream.read()
+                    if (_data != null) {
+                        hash.update(_data)
+                    }
+                })
+
+                readStream.on('end', () => {
+                    let hash_digest = hash.digest("hex")
+
+                    if (hash_digest === OLD_CHECKSUM) {
+                        return resolve(true)
+                    } else {
+                        return resolve(false)
+                    }
+
+                    // finally get out
+                })
+
+            })
+        }
+        return new Promise(async (resolve, reject) => {
+            if(!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, {recursive: true})
+            }
+
+            let file_res = await CheckFile(dir + "/" + filename, checksum)
+            if(!file_res) {
+                await downloadAndSave(download_link, filename, dir)
+                resolve()
+            } else {
+                resolve()
+            }
+        })
     }
 }
 

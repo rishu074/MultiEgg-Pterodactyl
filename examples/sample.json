@@ -211,7 +211,7 @@
                 {
                     "name": "Paper 1.19.3 (Stable)",
                     "value": 1,
-                    "href": "Minecraft_Java_check_jar",
+                    "href": "Reusable_DownloadFile_and_Check",
                     "textColor": "whiteBright",
                     "top": [
                         {
@@ -221,7 +221,9 @@
                     ],
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19.3",
-                        "env(&?&)E_VERSION(&?&)1.19.3"
+                        "env(&?&)E_VERSION(&?&)1.19.3",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -231,7 +233,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19.2",
-                        "env(&?&)E_VERSION(&?&)1.19.2"
+                        "env(&?&)E_VERSION(&?&)1.19.2",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -241,7 +245,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19.1",
-                        "env(&?&)E_VERSION(&?&)1.19.1"
+                        "env(&?&)E_VERSION(&?&)1.19.1",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -251,7 +257,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.19",
-                        "env(&?&)E_VERSION(&?&)1.19"
+                        "env(&?&)E_VERSION(&?&)1.19",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -261,7 +269,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.18.2",
-                        "env(&?&)E_VERSION(&?&)1.18.2"
+                        "env(&?&)E_VERSION(&?&)1.18.2",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -271,7 +281,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.18.1",
-                        "env(&?&)E_VERSION(&?&)1.18.1"
+                        "env(&?&)E_VERSION(&?&)1.18.1",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -281,7 +293,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.18",
-                        "env(&?&)E_VERSION(&?&)1.18"
+                        "env(&?&)E_VERSION(&?&)1.18",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -291,7 +305,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.17.1",
-                        "env(&?&)E_VERSION(&?&)1.17.1"
+                        "env(&?&)E_VERSION(&?&)1.17.1",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -301,7 +317,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.17",
-                        "env(&?&)E_VERSION(&?&)1.17"
+                        "env(&?&)E_VERSION(&?&)1.17",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -311,7 +329,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.16.5",
-                        "env(&?&)E_VERSION(&?&)1.16.5"
+                        "env(&?&)E_VERSION(&?&)1.16.5",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -321,7 +341,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.12.2",
-                        "env(&?&)E_VERSION(&?&)1.12.2"
+                        "env(&?&)E_VERSION(&?&)1.12.2",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 },
                 {
@@ -331,7 +353,9 @@
                     "textColor": "whiteBright",
                     "scripts": [
                         "env(&?&)E_DL(&?&)https://admin.dnxrg.com/file/jars/paper/1.8.8",
-                        "env(&?&)E_VERSION(&?&)1.8.8"
+                        "env(&?&)E_VERSION(&?&)1.8.8",
+                        "env(&?&)E_R_FALLBACK(&?&)Minecraft_Java_Plugins",
+                        "env(&?&)E_R_FALLBACK_TYPE(&?&)page"
                     ]
                 }
             ],
@@ -567,10 +591,10 @@
             ],
             "config_variable": "minecraft_java_Sponge_selected"
         },
-        "Minecraft_Java_check_jar": {
+        "Reusable_DownloadFile_and_Check": {
             "options": [],
             "scripts": [
-                "pathFinder(&?&)/home/container/server.jar(&?&)E_PLS(&?&)MATCH_CHECKSUM(&?&)Download_minecraft_jar"
+                "pathFinder(&?&)/home/container/server.jar(&?&)E_PLS(&?&)MATCH_CHECKSUM(&?&)DOWNLOAD_FILE"
             ],
             "href": "{{E_PLS}}"
         },
@@ -578,23 +602,45 @@
             "options": [],
             "scripts": [
                 "download_to_env(&?&){{E_DL}}?k=checksum(&?&)E_CHECKSUM",
-                "match_hash(&?&)/home/container/server.jar(&?&){{E_CHECKSUM}}(&?&)E_VERIFIED(&?&)Minecraft_start_server(&?&)Download_minecraft_jar"
+                "match_hash(&?&)/home/container/server.jar(&?&){{E_CHECKSUM}}(&?&)E_VERIFIED(&?&){{E_R_FALLBACK}}(&?&)DOWNLOAD_FILE",
+                "match_hash(&?&)/home/container/server.jar(&?&){{E_CHECKSUM}}(&?&)E_VERIFIED_TYPE(&?&){{E_R_FALLBACK_TYPE}}(&?&)page"
             ],
-            "href": "{{E_VERIFIED}}"
+            "href": "{{E_VERIFIED}}",
+            "hrefType": "{{E_VERIFIED_TYPE}}"
         },
-        "Download_minecraft_jar": {
+        "DOWNLOAD_FILE": {
             "options": [],
             "scripts": [
                 "jar(&?&){{E_DL}}(&?&)server.jar"
             ],
             "href": "MATCH_CHECKSUM"
         },
-        "Minecraft_start_server": {
-            "options": [],
-            "scripts": [
-                "print(&?&)Starting server"
+        "Minecraft_Java_Plugins": {
+            "options": [
+                {
+                    "name": "Download recommended plugins",
+                    "value": 1,
+                    "href": "ChooseJavaMinecraft",
+                    "textColor": "whiteBright",
+                    "top": [
+                        {
+                            "text": "\nDo you want us to download recommended plugins? (clearlagg, hibernate)",
+                            "textColor": "yellowBright"
+                        }
+                    ],
+                    "scripts": [
+                        "download_to_env(&?&)https://admin.dnxrg.com/file/plugins/Clearlag.jar?k=checksum(&?&)E_CHECKSUM",
+                        "download_file_check_hash(&?&)https://admin.dnxrg.com/file/plugins/Clearlag.jar(&?&){{E_CHECKSUM}}(&?&)Clearlag.jar(&?&)/home/container/plugins"
+                    ]
+                },
+                {
+                    "name": "Dont download recommended plugins",
+                    "value": 2,
+                    "href": "ChooseJavaMinecraft",
+                    "textColor": "whiteBright"
+                }
             ],
-            "href": "nothing"
+            "config_variable": "minecraft_java_download_plugins"
         },
         "PythonUserScreen": {
             "options": [
