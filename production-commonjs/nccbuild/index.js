@@ -6459,7 +6459,7 @@ module.exports = async function () {
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
-    if (!pages || !pages.default || !pages[pages.default] || !pages[pages.default].options) {
+    if (!pages || !pages.default || !pages[pages.default]) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }
@@ -6687,7 +6687,7 @@ module.exports = async function subPage(page) {
 
     const { pages } = process.licence
     const ConfigInstance = process.ConfigInstance
-    if (!pages || !pages.default || !pages[page] || !pages[page].options) {
+    if (!pages || !pages.default || !pages[page]) {
         error("No page found to display or the page was not correctly configured!")
         process.exit(1)
     }

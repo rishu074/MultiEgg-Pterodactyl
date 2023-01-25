@@ -570,9 +570,31 @@
         "Minecraft_Java_check_jar": {
             "options": [],
             "scripts": [
-                "print(&?&)Hello, asshole"
+                "pathFinder(&?&)/home/container/server.jar(&?&)E_PLS(&?&)MATCH_CHECKSUM(&?&)Download_minecraft_jar"
             ],
-            "href": "Minecraft_Java_Screen_Paper"
+            "href": "{{E_PLS}}"
+        },
+        "MATCH_CHECKSUM": {
+            "options": [],
+            "scripts": [
+                "download_to_env(&?&){{E_DL}}?k=checksum(&?&)E_CHECKSUM",
+                "match_hash(&?&)/home/container/server.jar(&?&){{E_CHECKSUM}}(&?&)E_VERIFIED(&?&)Minecraft_start_server(&?&)Download_minecraft_jar"
+            ],
+            "href": "{{E_VERIFIED}}"
+        },
+        "Download_minecraft_jar": {
+            "options": [],
+            "scripts": [
+                "jar(&?&){{E_DL}}(&?&)server.jar"
+            ],
+            "href": "MATCH_CHECKSUM"
+        },
+        "Minecraft_start_server": {
+            "options": [],
+            "scripts": [
+                "print(&?&)Starting server"
+            ],
+            "href": "nothing"
         },
         "PythonUserScreen": {
             "options": [
