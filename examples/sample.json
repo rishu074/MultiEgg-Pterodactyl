@@ -624,7 +624,7 @@
                     "textColor": "whiteBright",
                     "top": [
                         {
-                            "text": "\nDo you want us to download recommended plugins? (clearlagg, hibernate)",
+                            "text": "\nDo you want us to download recommeded plugins? (clearlagg, hibernate)",
                             "textColor": "yellowBright"
                         }
                     ],
