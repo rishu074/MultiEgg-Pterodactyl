@@ -1,2 +1,3 @@
-# dnxrg-egg-egg3.0
-The is a modern egg used for dnxrg free host
+# MutiEgg Pterodactyl
+This is just a multiegg of pterodactyl built for dnxrg by me. :)
+You can use it for reference. However it works completely fine
